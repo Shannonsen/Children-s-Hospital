@@ -5,10 +5,12 @@
  */
 package Activities;
 
+import Data.Patient;
 import DataBase.Conexion;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,27 +18,15 @@ import java.sql.Connection;
  */
 public class Hospital {
 
-    /**
-     * @param args the command line arguments
-     */
+    public Hospital() {
+        Operations activities = new Operations();
+
+        activities.menu();
+        activities.printPatients(activities.getPatients());
+    }
+
     public static void main(String[] args) {
-        Conexion con = new Conexion();
-        Connection cn = con.conexion();
-        Statement st;
-        ResultSet rs;
+        new Hospital();
+    }
 
-        try {
-            st = cn.createStatement();
-            rs = st.executeQuery("Select * from hospital");
-
-            while (rs.next()) {
-                System.out.println(rs.getString("name"));
-            }
-            st.close();
-        } catch (Exception e) {
-
-        }      
-       
-    }  
-    
 }

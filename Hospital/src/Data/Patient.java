@@ -1,31 +1,47 @@
 package Data;
 
+import java.sql.Date;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Shannon
  */
 public class Patient {
-    String name; //Complete name
-    String age;
+
+    String name;
+    String lastname;
+    int age;
     String gender;
-    Date dateBirth;
+    java.sql.Date dateBirth;
     String originCity;
-    Date dateInscription;
-    String originHospital;
     String tutorName;
-    String telephone;
+    int telephone;
+
+    public Patient(String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, int telephone) {
+        this.name = name;
+        this.lastname = lastname;
+        this.age = age;
+        this.gender = gender;
+        this.dateBirth = dateBirth;
+        this.originCity = originCity;
+        this.tutorName = tutorName;
+        this.telephone = telephone;
+    }
 
     public String getName() {
         return name;
     }
 
-    public String getAge() {
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getAge() {
         return age;
     }
 
@@ -33,7 +49,7 @@ public class Patient {
         return gender;
     }
 
-    public Date getDateBirth() {
+    public java.sql.Date getDateBirth() {
         return dateBirth;
     }
 
@@ -41,19 +57,11 @@ public class Patient {
         return originCity;
     }
 
-    public Date getDateInscription() {
-        return dateInscription;
-    }
-
-    public String getOriginHospital() {
-        return originHospital;
-    }
-
     public String getTutorName() {
         return tutorName;
     }
 
-    public String getTelephone() {
+    public int getTelephone() {
         return telephone;
     }
 
@@ -61,7 +69,11 @@ public class Patient {
         this.name = name;
     }
 
-    public void setAge(String age) {
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -77,20 +89,12 @@ public class Patient {
         this.originCity = originCity;
     }
 
-    public void setDateInscription(Date dateInscription) {
-        this.dateInscription = dateInscription;
-    }
-
-    public void setOriginHospital(String originHospital) {
-        this.originHospital = originHospital;
-    }
-
     public void setTutorName(String tutorName) {
         this.tutorName = tutorName;
     }
 
-    public void setTelephone(String telephone) {
+    public void setTelephone(int telephone) {
         this.telephone = telephone;
     }
-    
+
 }

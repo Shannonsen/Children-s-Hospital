@@ -6,7 +6,7 @@
 package DataBase;
 
 import java.sql.Connection;
-import com.mysql.jdbc.Statement;
+import java.sql.Statement;
 import java.sql.DriverManager;
 
 /**
