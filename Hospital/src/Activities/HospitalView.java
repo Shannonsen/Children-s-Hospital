@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -78,7 +79,6 @@ public class HospitalView extends javax.swing.JFrame {
         btnAddPatient = new javax.swing.JButton();
         btnDeletePatient = new javax.swing.JButton();
         btnModifyPatient = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -269,19 +269,17 @@ public class HospitalView extends javax.swing.JFrame {
 
         btnDeletePatient.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         btnDeletePatient.setText("deletePatient");
+        btnDeletePatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePatientActionPerformed(evt);
+            }
+        });
 
         btnModifyPatient.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         btnModifyPatient.setText("modifyPatient");
         btnModifyPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyPatientActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setText("UpdateTable");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -296,19 +294,15 @@ public class HospitalView extends javax.swing.JFrame {
                 .addComponent(btnModifyPatient)
                 .addGap(43, 43, 43)
                 .addComponent(btnDeletePatient)
-                .addGap(55, 55, 55)
-                .addComponent(btnUpdate)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAddPatient)
-                        .addComponent(btnDeletePatient)
-                        .addComponent(btnModifyPatient))
-                    .addComponent(btnUpdate))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddPatient)
+                    .addComponent(btnDeletePatient)
+                    .addComponent(btnModifyPatient))
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
@@ -377,7 +371,7 @@ public class HospitalView extends javax.swing.JFrame {
         java.sql.Date dateBirth = activities.generateDate();
         String originCity = txtOriginCity.getText();
         String tutorName = txtTutor.getText();
-        int telephone = Integer.parseInt(txtTelephone.getText());
+        String telephone = txtTelephone.getText();
         String originHospital = (String) combHospital.getSelectedItem();
 
         int id_hospital = 1;
@@ -387,7 +381,10 @@ public class HospitalView extends javax.swing.JFrame {
             }
         }
 
-        activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
+        int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
+        System.out.println("row: " + rowcount);
+        TableChildren();
+        activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
         TableChildren();
         cleanData();
     }//GEN-LAST:event_btnAddPatientActionPerformed
@@ -399,10 +396,6 @@ public class HospitalView extends javax.swing.JFrame {
     private void combGenderItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combGenderItemStateChanged
 
     }//GEN-LAST:event_combGenderItemStateChanged
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        TableChildren();
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void tbChildrenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbChildrenMouseClicked
         patients = activities.getPatients();
@@ -421,7 +414,7 @@ public class HospitalView extends javax.swing.JFrame {
             txtOriginCity.setText(patient.get(i).getOriginCity());
             txtAge.setText(String.valueOf(patient.get(i).getAge()));
             txtTutor.setText(patient.get(i).getTutorName());
-            txtTelephone.setText(String.valueOf(patient.get(i).getTelephone()));
+            txtTelephone.setText(patient.get(i).getTelephone());
             combGender.setSelectedItem(patient.get(i).getGender());
 
             for (int j = 0; j < inscriptions.size(); j++) {
@@ -441,27 +434,54 @@ public class HospitalView extends javax.swing.JFrame {
 
         String name = txtName.getText();
         String lastName = txtLastName.getText();
-        int age = Integer.parseInt(txtAge.getText());
+        int age = Integer.parseInt(txtAge.getText().trim());
         String gender = (String) combGender.getSelectedItem();
         java.sql.Date dateBirth = activities.generateDate();
         String originCity = txtOriginCity.getText();
         String tutorName = txtTutor.getText();
-        int telephone = Integer.parseInt(txtTelephone.getText());
+        String telephone = txtTelephone.getText();
         String originHospital = (String) combHospital.getSelectedItem();
+        boolean isNumeric = false;
+        boolean isLetterName = false;
+        boolean isLetterLastName = false;
+        boolean isLetterTutorName = false;
 
-        int id_hospital = 0;
-        for (int j = 0; j < hospitals.size(); j++) {
-            if (hospitals.get(j).getName().equals(originHospital)) {
-                System.out.println(hospitals.get(j).getName() + " = " + originHospital);
-                id_hospital = hospitals.get(j).getId_hospital();
+        isLetterName = activities.isLetter(name);
+        System.out.println(isLetterName);
+        isLetterLastName = activities.isLetter(lastName);
+        System.out.println(isLetterLastName);
+        isLetterTutorName = activities.isLetter(tutorName);
+        System.out.println(isLetterTutorName);
+
+        isNumeric = activities.isNumeric(telephone);
+
+        if (isNumeric == false) {
+            JOptionPane.showMessageDialog(null, "Only numbers");
+        } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
+            JOptionPane.showMessageDialog(null, "Only letters");
+        } else {
+            int id_hospital = 0;
+            for (int j = 0; j < hospitals.size(); j++) {
+                if (hospitals.get(j).getName().equals(originHospital)) {
+                    System.out.println(hospitals.get(j).getName() + " = " + originHospital);
+                    id_hospital = hospitals.get(j).getId_hospital();
+                }
             }
+
+            activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
+
+            TableChildren();
+            cleanData();
         }
 
-        activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
-        TableChildren();
-        cleanData();
 
     }//GEN-LAST:event_btnModifyPatientActionPerformed
+
+    private void btnDeletePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePatientActionPerformed
+        activities.deletePatient(currentId);
+        TableChildren();
+        cleanData();
+    }//GEN-LAST:event_btnDeletePatientActionPerformed
 
     public void TableChildren() {
 
@@ -543,7 +563,6 @@ public class HospitalView extends javax.swing.JFrame {
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton btnDeletePatient;
     private javax.swing.JButton btnModifyPatient;
-    private javax.swing.JButton btnUpdate;
     private java.awt.Choice choice3;
     private javax.swing.JComboBox combGender;
     private javax.swing.JComboBox combHospital;

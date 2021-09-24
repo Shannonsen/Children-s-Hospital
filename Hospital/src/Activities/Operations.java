@@ -46,7 +46,7 @@ public class Operations {
             while (rs.next()) {
                 patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getInt("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getInt("telephone")));
+                        rs.getString("telephone")));
                 countrow++;
             }
         } catch (Exception e) {
@@ -63,7 +63,7 @@ public class Operations {
             rs = st.executeQuery("select * from hospitals");
 
             while (rs.next()) {
-                hospitals.add(new Hospital(rs.getInt("id_hospital"), rs.getString("name"), rs.getString("address"), rs.getInt("telephone")));
+                hospitals.add(new Hospital(rs.getInt("id_hospital"), rs.getString("name"), rs.getString("address"), rs.getString("telephone")));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -97,7 +97,7 @@ public class Operations {
             while (rs.next()) {
                 patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getInt("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getInt("telephone")));
+                        rs.getString("telephone")));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -107,11 +107,10 @@ public class Operations {
     }
 
     public void updatePatient(int id_patient, String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity,
-            String tutorName, int telephone, int id_hospital) {
-        
+            String tutorName, String telephone, int id_hospital) {
+
         try {
-            PreparedStatement insert = cn.prepareCall("UPDATE Patients SET name=?,last_name=?,age=?,gender=?,date_Birth=?,origin_city=?,tutor_name=?,telephone=?"
-                    + " WHERE id_patient=?");
+            PreparedStatement insert = cn.prepareCall("UPDATE Patients SET name=?,last_name=?,age=?,gender=?,date_Birth=?,origin_city=?,tutor_name=?,telephone=? WHERE id_patient=?");
             insert.setString(1, name);
             insert.setString(2, lastname);
             insert.setInt(3, age);
@@ -119,12 +118,12 @@ public class Operations {
             insert.setDate(5, dateBirth);
             insert.setString(6, originCity);
             insert.setString(7, tutorName);
-            insert.setInt(8, telephone);
+            insert.setString(8, telephone);
             insert.setInt(9, id_patient);
             insert.executeUpdate();
-            
-            updateInscription(id_patient,id_hospital);
-           
+
+            updateInscription(id_patient, id_hospital);
+
             JOptionPane.showMessageDialog(null, "Succesfull update patient");
 
         } catch (Exception e) {
@@ -169,8 +168,8 @@ public class Operations {
 
     }
 
-    public void addPatientMysql(String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity,
-            String tutorName, int telephone, int id_hospital) {
+    public int addPatientMysql(String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity,
+            String tutorName, String telephone) {
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone)"
                     + "VALUES (?,?,?,?,?,?,?,?)");
@@ -181,19 +180,56 @@ public class Operations {
             insert.setDate(5, dateBirth);
             insert.setString(6, originCity);
             insert.setString(7, tutorName);
-            insert.setInt(8, telephone);
+            insert.setString(8, telephone);
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Succesfull patient");
             countrow = 0;
+            ArrayList<Patient> patients = new ArrayList<Patient>();
             getPatients();
-            System.out.println(countrow);
 
-            addInscription(countrow, id_hospital);
             System.out.println("Succesfull sending");
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return countrow;
+    }
+
+    public void deletePatient(int id_patient) {
+        try {
+            PreparedStatement insert = cn.prepareCall("DELETE from Patients WHERE id_patient=?");
+            insert.setInt(1, id_patient);
+            insert.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Succesfull delete patient");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }
+
+    public void autoIncrementUpdatePatients() {
+
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery("ALTER TABLE patients  AUTO_INCREMENT = 1;");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void autoIncrementUpdateInscriptions() {
+
+        try {
+            st = cn.createStatement();
+            rs = st.executeQuery("ALTER TABLE inscriptions  AUTO_INCREMENT = 1;");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -263,6 +299,20 @@ public class Operations {
         java.sql.Date sqldate = new java.sql.Date(dateone.getTime());
 
         return sqldate;
+    }
+
+    public boolean isNumeric(String number) {
+        return number.matches("[0-9]*");
+    }
+
+    public boolean isLetter(String words) {
+        for (int x = 0; x < words.length(); x++) {
+            char c = words.charAt(x);
+            if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

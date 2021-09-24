@@ -13,9 +13,9 @@ public class Hospital {
     int id_hospital;
     String name;
     String address;
-    int telephone;
+    String telephone;
 
-    public Hospital(int id_hospital,String name, String address, int telephone) {
+    public Hospital(int id_hospital,String name, String address, String telephone) {
         this.id_hospital= id_hospital;
         this.name = name;
         this.address = address;
@@ -34,7 +34,7 @@ public class Hospital {
         return address;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
@@ -46,7 +46,7 @@ public class Hospital {
         this.address = address;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
         

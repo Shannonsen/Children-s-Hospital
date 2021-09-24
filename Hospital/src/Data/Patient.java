@@ -22,9 +22,9 @@ public class Patient {
     java.sql.Date dateBirth;
     String originCity;
     String tutorName;
-    int telephone;
+    String telephone;
 
-    public Patient(int id_patient,String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, int telephone) {
+    public Patient(int id_patient,String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, String telephone) {
         this.id_patient = id_patient;
         this.name = name;
         this.lastname = lastname;
@@ -68,7 +68,7 @@ public class Patient {
         return tutorName;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
@@ -100,7 +100,7 @@ public class Patient {
         this.tutorName = tutorName;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
