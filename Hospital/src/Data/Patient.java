@@ -11,8 +11,10 @@ import java.sql.Date;
  *
  * @author Shannon
  */
+
 public class Patient {
 
+    int id_patient;
     String name;
     String lastname;
     int age;
@@ -22,7 +24,8 @@ public class Patient {
     String tutorName;
     int telephone;
 
-    public Patient(String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, int telephone) {
+    public Patient(int id_patient,String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, int telephone) {
+        this.id_patient = id_patient;
         this.name = name;
         this.lastname = lastname;
         this.age = age;
@@ -33,6 +36,10 @@ public class Patient {
         this.telephone = telephone;
     }
 
+    public int getId_patient() {
+        return id_patient;
+    }
+   
     public String getName() {
         return name;
     }
