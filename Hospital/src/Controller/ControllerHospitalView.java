@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Activities.HospitalView;
+import View.HospitalView;
 import Activities.Operations;
 import Data.Hospital;
 import Data.Inscription;
@@ -174,7 +174,7 @@ public class ControllerHospitalView {
 
                     TableChildren();
                     cleanData();
-                    currentId=0;
+                    currentId = 0;
                 }
             }
         }
@@ -227,28 +227,23 @@ public class ControllerHospitalView {
 
         @Override
         public void mousePressed(MouseEvent e) {
-
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-
         }
 
     };
 
     public void TableChildren() {
-
         patients = activities.getPatients();
         inscriptions = activities.getInscriptions();
         hospitals = activities.getHospitals();
