@@ -13,7 +13,6 @@ import java.sql.Date;
  */
 
 public class Patient {
-
     int id_patient;
     String name;
     String lastname;

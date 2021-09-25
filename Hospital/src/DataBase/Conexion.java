@@ -1,19 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DataBase;
 
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Shannon
  */
 public class Conexion {
+
     Connection cn;
     Statement st;
 
@@ -21,7 +18,7 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital", "Shannon", "mysqlpass");
-            System.out.println("Succesful conection");
+            JOptionPane.showMessageDialog(null, "Succesful conection");
         } catch (Exception e) {
             System.out.println("Error:" + e);
         }
@@ -31,5 +28,5 @@ public class Conexion {
     Statement createStatement() {
         throw new UnsupportedOperationException("Not supported");
     }
-    
+
 }

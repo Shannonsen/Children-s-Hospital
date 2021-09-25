@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Activities;
 
 import Data.Hospital;
 import Data.Inscription;
 import Data.Patient;
 import DataBase.Conexion;
-import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,15 +17,12 @@ import javax.swing.JOptionPane;
  * @author Shannon
  */
 public class Operations {
-
     Conexion con = new Conexion();
+    Scanner strScanner = new Scanner(System.in);
+    Scanner intScanner = new Scanner(System.in);
     Connection cn = con.conexion();
     Statement st = null;
     ResultSet rs = null;
-
-    Scanner strScanner = new Scanner(System.in);
-    Scanner intScanner = new Scanner(System.in);
-
     int countrow;
 
     public ArrayList<Patient> getPatients() {
@@ -101,12 +92,10 @@ public class Operations {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return patients;
-
     }
 
-    public void updatePatient(int id_patient, String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
-            String tutorName, String telephone, int id_hospital) {
-
+    public void updatePatient(int id_patient, String name, String lastname, String age, String gender, java.sql.Date dateBirth,
+            String originCity, String tutorName, String telephone, int id_hospital) {
         try {
             PreparedStatement insert = cn.prepareCall("UPDATE Patients SET name=?,last_name=?,age=?,gender=?,date_Birth=?,origin_city=?,tutor_name=?,telephone=? WHERE id_patient=?");
             insert.setString(1, name);
@@ -121,13 +110,10 @@ public class Operations {
             insert.executeUpdate();
 
             updateInscription(id_patient, id_hospital);
-
             JOptionPane.showMessageDialog(null, "Succesfull update patient");
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }
 
     public void updateInscription(int id_patient, int id_hospital) {
@@ -145,7 +131,6 @@ public class Operations {
     }
 
     public void addInscription(int id_patient, int id_hospital) {
-
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Inscriptions(id_patient,id_hospital,date_inscription) VALUES (?,?,?)");
             insert.setInt(1, id_patient);
@@ -162,6 +147,8 @@ public class Operations {
 
     public int addPatientMysql(String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
             String tutorName, String telephone) {
+        countrow = 0;
+        ArrayList<Patient> patients = new ArrayList<Patient>();
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone)"
                     + "VALUES (?,?,?,?,?,?,?,?)");
@@ -176,10 +163,7 @@ public class Operations {
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Succesfull patient");
-            countrow = 0;
-            ArrayList<Patient> patients = new ArrayList<Patient>();
             getPatients();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -193,34 +177,28 @@ public class Operations {
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Succesfull delete patient");
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }
 
     public void autoIncrementUpdatePatients() {
-
         try {
             st = cn.createStatement();
             rs = st.executeQuery("ALTER TABLE patients  AUTO_INCREMENT = 1;");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }
 
     public void autoIncrementUpdateInscriptions() {
-
         try {
             st = cn.createStatement();
             rs = st.executeQuery("ALTER TABLE inscriptions  AUTO_INCREMENT = 1;");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }
 
     public java.sql.Date generateDate() {
@@ -238,7 +216,7 @@ public class Operations {
         boolean result = false;
 
         if (number.matches(number) == true) {
-            String ageArray[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "11", "12", "13", "14", "15", "16", "17", "18"};
+            String ageArray[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"};
 
             for (int i = 0; i < ageArray.length; i++) {
                 if (number.equals(ageArray[i])) {

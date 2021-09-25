@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import View.HospitalView;
@@ -76,14 +71,13 @@ public class ControllerHospitalView {
             boolean isNumericAge = false;
             boolean isLetterName = false;
             boolean isLetterLastName = false;
+            boolean isLetterOriginCity = false;
             boolean isLetterTutorName = false;
 
             isLetterName = activities.isLetter(name);
-            System.out.println(isLetterName);
             isLetterLastName = activities.isLetter(lastName);
-            System.out.println(isLetterLastName);
             isLetterTutorName = activities.isLetter(tutorName);
-            System.out.println(isLetterTutorName);
+            isLetterOriginCity = activities.isLetter(originCity);
             isNumericTelephone = activities.isNumericTelephone(telephone);
             isNumericAge = activities.isNumericAge(age);
 
@@ -91,7 +85,7 @@ public class ControllerHospitalView {
                 JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
             } else if (isNumericAge == false) {
                 JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
-            } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
+            } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false || isLetterOriginCity == false) {
                 JOptionPane.showMessageDialog(null, "Only letters");
             } else {
 
@@ -144,14 +138,12 @@ public class ControllerHospitalView {
                 boolean isLetterName = false;
                 boolean isLetterLastName = false;
                 boolean isLetterTutorName = false;
+                boolean isLetterOriginCity = false;
 
                 isLetterName = activities.isLetter(name);
-                System.out.println(isLetterName);
                 isLetterLastName = activities.isLetter(lastName);
-                System.out.println(isLetterLastName);
                 isLetterTutorName = activities.isLetter(tutorName);
-                System.out.println(isLetterTutorName);
-
+                isLetterOriginCity = activities.isLetter(originCity);
                 isNumericTelephone = activities.isNumericTelephone(telephone);
                 isNumericAge = activities.isNumericAge(age);
 
@@ -159,13 +151,12 @@ public class ControllerHospitalView {
                     JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
                 } else if (isNumericAge == false) {
                     JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
-                } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
+                } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false || isLetterOriginCity == false) {
                     JOptionPane.showMessageDialog(null, "Only letters");
                 } else {
                     int id_hospital = 0;
                     for (int j = 0; j < hospitals.size(); j++) {
-                        if (hospitals.get(j).getName().equals(originHospital)) {
-                            System.out.println(hospitals.get(j).getName() + " = " + originHospital);
+                        if (hospitals.get(j).getName().equals(originHospital)) {                  
                             id_hospital = hospitals.get(j).getId_hospital();
                         }
                     }
@@ -184,7 +175,6 @@ public class ControllerHospitalView {
         if (currentId == 0) {
             JOptionPane.showMessageDialog(null, "Select a patient");
         } else {
-            System.out.println(currentId);
             activities.deletePatient(currentId);
             TableChildren();
             cleanData();
