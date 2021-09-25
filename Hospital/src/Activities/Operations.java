@@ -230,7 +230,7 @@ public class Operations {
     }
 
     public boolean isNumericTelephone(String number) {
-        return number.matches("[0-9]{1,10}");
+        return number.matches("[0-9]{9,10}");
     }
 
     public boolean isLetter(String words) {

@@ -83,7 +83,7 @@ public class ControllerHospitalView {
         isNumeric = activities.isNumericTelephone(telephone);
 
         if (isNumeric == false) {
-            JOptionPane.showMessageDialog(null, "Only numbers");
+            JOptionPane.showMessageDialog(null, "Only numbers or 9-10 numbers necessary");
         } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
             JOptionPane.showMessageDialog(null, "Only letters");
         } else {
@@ -135,7 +135,7 @@ public class ControllerHospitalView {
         isNumeric = activities.isNumericTelephone(telephone);
 
         if (isNumeric == false) {
-            JOptionPane.showMessageDialog(null, "Only numbers");
+            JOptionPane.showMessageDialog(null, "Only numbers or 9-10 numbers necessary");
         } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
             JOptionPane.showMessageDialog(null, "Only letters");
         } else {
