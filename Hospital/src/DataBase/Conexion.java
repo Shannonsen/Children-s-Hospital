@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
  * @author Shannon
  */
 public class Conexion {
-
     Connection cn;
     Statement st;
 
