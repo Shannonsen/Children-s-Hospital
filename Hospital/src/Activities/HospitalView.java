@@ -9,6 +9,7 @@ import Data.Hospital;
 import Data.Inscription;
 import Data.Patient;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,7 +67,6 @@ public class HospitalView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        choice3 = new java.awt.Choice();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -75,6 +75,7 @@ public class HospitalView extends javax.swing.JFrame {
         txtTelephone = new javax.swing.JTextField();
         combGender = new javax.swing.JComboBox();
         combHospital = new javax.swing.JComboBox();
+        dateChooser = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         btnAddPatient = new javax.swing.JButton();
         btnDeletePatient = new javax.swing.JButton();
@@ -100,17 +101,17 @@ public class HospitalView extends javax.swing.JFrame {
 
         tbChildren.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Last name", "age", "gender", "Hospital origin", "Inscription", "telephone"
+                "ID", "Name", "Last name", "Age", "Gender", "Hospital origin", "Inscription", "DateBirth", "Tutor", "Telephone", "City"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -123,6 +124,28 @@ public class HospitalView extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbChildren);
+        if (tbChildren.getColumnModel().getColumnCount() > 0) {
+            tbChildren.getColumnModel().getColumn(0).setResizable(false);
+            tbChildren.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tbChildren.getColumnModel().getColumn(1).setResizable(false);
+            tbChildren.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tbChildren.getColumnModel().getColumn(2).setResizable(false);
+            tbChildren.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tbChildren.getColumnModel().getColumn(3).setResizable(false);
+            tbChildren.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tbChildren.getColumnModel().getColumn(4).setResizable(false);
+            tbChildren.getColumnModel().getColumn(4).setPreferredWidth(30);
+            tbChildren.getColumnModel().getColumn(5).setResizable(false);
+            tbChildren.getColumnModel().getColumn(5).setPreferredWidth(80);
+            tbChildren.getColumnModel().getColumn(6).setResizable(false);
+            tbChildren.getColumnModel().getColumn(6).setPreferredWidth(50);
+            tbChildren.getColumnModel().getColumn(7).setResizable(false);
+            tbChildren.getColumnModel().getColumn(7).setPreferredWidth(50);
+            tbChildren.getColumnModel().getColumn(8).setResizable(false);
+            tbChildren.getColumnModel().getColumn(8).setPreferredWidth(80);
+            tbChildren.getColumnModel().getColumn(9).setResizable(false);
+            tbChildren.getColumnModel().getColumn(10).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         jLabel1.setText("Children's Hospital");
@@ -133,6 +156,7 @@ public class HospitalView extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel2.setText("Name");
 
+        txtName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -142,8 +166,12 @@ public class HospitalView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel3.setText("Last name");
 
+        txtLastName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         jLabel4.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel4.setText("City");
+
+        txtOriginCity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel5.setText("gender");
@@ -163,6 +191,13 @@ public class HospitalView extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel10.setText("telephone");
 
+        txtAge.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtTutor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtTelephone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        combGender.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         combGender.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 combGenderItemStateChanged(evt);
@@ -173,6 +208,8 @@ public class HospitalView extends javax.swing.JFrame {
                 combGenderActionPerformed(evt);
             }
         });
+
+        combHospital.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -220,9 +257,9 @@ public class HospitalView extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtOriginCity)
-                    .addComponent(choice3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(txtTelephone))
+                    .addComponent(txtOriginCity, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(txtTelephone)
+                    .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
@@ -244,7 +281,7 @@ public class HospitalView extends javax.swing.JFrame {
                         .addComponent(combGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(combHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7)
-                    .addComponent(choice3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -260,7 +297,7 @@ public class HospitalView extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buttons"));
 
         btnAddPatient.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
-        btnAddPatient.setText("addPatient");
+        btnAddPatient.setText("add new patient");
         btnAddPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddPatientActionPerformed(evt);
@@ -268,7 +305,7 @@ public class HospitalView extends javax.swing.JFrame {
         });
 
         btnDeletePatient.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
-        btnDeletePatient.setText("deletePatient");
+        btnDeletePatient.setText("delete patient");
         btnDeletePatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletePatientActionPerformed(evt);
@@ -276,7 +313,7 @@ public class HospitalView extends javax.swing.JFrame {
         });
 
         btnModifyPatient.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
-        btnModifyPatient.setText("modifyPatient");
+        btnModifyPatient.setText("modify patient");
         btnModifyPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifyPatientActionPerformed(evt);
@@ -288,13 +325,13 @@ public class HospitalView extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(91, 91, 91)
                 .addComponent(btnAddPatient)
-                .addGap(45, 45, 45)
+                .addGap(125, 125, 125)
                 .addComponent(btnModifyPatient)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDeletePatient)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(93, 93, 93))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,7 +381,7 @@ public class HospitalView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, Short.MAX_VALUE)
         );
 
         pack();
@@ -368,25 +405,49 @@ public class HospitalView extends javax.swing.JFrame {
         String lastName = txtLastName.getText();
         int age = Integer.parseInt(txtAge.getText());
         String gender = (String) combGender.getSelectedItem();
-        java.sql.Date dateBirth = activities.generateDate();
+
+        java.util.Date date = dateChooser.getDate();
+        java.sql.Date sqldate = new java.sql.Date(date.getTime());
+
+        java.sql.Date dateBirth = sqldate;
         String originCity = txtOriginCity.getText();
         String tutorName = txtTutor.getText();
         String telephone = txtTelephone.getText();
         String originHospital = (String) combHospital.getSelectedItem();
 
-        int id_hospital = 1;
-        for (int i = 0; i < hospitals.size(); i++) {
-            if (originHospital.equals(hospitals.get(i).getName())) {
-                id_hospital = hospitals.get(i).getId_hospital();
-            }
-        }
+        boolean isNumeric = false;
+        boolean isLetterName = false;
+        boolean isLetterLastName = false;
+        boolean isLetterTutorName = false;
 
-        int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
-        System.out.println("row: " + rowcount);
-        TableChildren();
-        activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
-        TableChildren();
-        cleanData();
+        isLetterName = activities.isLetter(name);
+        System.out.println(isLetterName);
+        isLetterLastName = activities.isLetter(lastName);
+        System.out.println(isLetterLastName);
+        isLetterTutorName = activities.isLetter(tutorName);
+        System.out.println(isLetterTutorName);
+
+        isNumeric = activities.isNumeric(telephone);
+
+        if (isNumeric == false) {
+            JOptionPane.showMessageDialog(null, "Only numbers");
+        } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
+            JOptionPane.showMessageDialog(null, "Only letters");
+        } else {
+
+            int id_hospital = 1;
+            for (int i = 0; i < hospitals.size(); i++) {
+                if (originHospital.equals(hospitals.get(i).getName())) {
+                    id_hospital = hospitals.get(i).getId_hospital();
+                }
+            }
+
+            int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
+            TableChildren();
+            activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
+            TableChildren();
+            cleanData();
+        }
     }//GEN-LAST:event_btnAddPatientActionPerformed
 
     private void combGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combGenderActionPerformed
@@ -416,6 +477,7 @@ public class HospitalView extends javax.swing.JFrame {
             txtTutor.setText(patient.get(i).getTutorName());
             txtTelephone.setText(patient.get(i).getTelephone());
             combGender.setSelectedItem(patient.get(i).getGender());
+            dateChooser.setDate(patient.get(i).getDateBirth());
 
             for (int j = 0; j < inscriptions.size(); j++) {
                 if (id == inscriptions.get(j).getId_patient()) {
@@ -431,12 +493,17 @@ public class HospitalView extends javax.swing.JFrame {
     }//GEN-LAST:event_tbChildrenMouseClicked
 
     private void btnModifyPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyPatientActionPerformed
-
         String name = txtName.getText();
         String lastName = txtLastName.getText();
         int age = Integer.parseInt(txtAge.getText().trim());
         String gender = (String) combGender.getSelectedItem();
-        java.sql.Date dateBirth = activities.generateDate();
+        //java.sql.Date dateBirth = activities.generateDate();
+
+        java.util.Date date = dateChooser.getDate();
+        java.sql.Date sqldate = new java.sql.Date(date.getTime());
+
+        java.sql.Date dateBirth = sqldate;
+
         String originCity = txtOriginCity.getText();
         String tutorName = txtTutor.getText();
         String telephone = txtTelephone.getText();
@@ -492,7 +559,7 @@ public class HospitalView extends javax.swing.JFrame {
         DefaultTableModel tableChildren = (DefaultTableModel) tbChildren.getModel();
         tableChildren.setRowCount(0);
 
-        Object rowData[] = new Object[8];
+        Object rowData[] = new Object[11];
 
         for (int i = 0; i < patients.size(); i++) {
             rowData[0] = patients.get(i).getId_patient();
@@ -513,7 +580,11 @@ public class HospitalView extends javax.swing.JFrame {
                     }
                 }
             }
-            rowData[7] = patients.get(i).getTelephone();
+
+            rowData[7] = patients.get(i).getDateBirth();
+            rowData[8] = patients.get(i).getTutorName();
+            rowData[9] = patients.get(i).getTelephone();
+            rowData[10] = patients.get(i).getOriginCity();
             tableChildren.addRow(rowData);
         }
     }
@@ -563,9 +634,9 @@ public class HospitalView extends javax.swing.JFrame {
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton btnDeletePatient;
     private javax.swing.JButton btnModifyPatient;
-    private java.awt.Choice choice3;
     private javax.swing.JComboBox combGender;
     private javax.swing.JComboBox combHospital;
+    private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
