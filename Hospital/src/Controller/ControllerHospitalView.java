@@ -50,120 +50,146 @@ public class ControllerHospitalView {
 
     private void addPatient(ActionEvent e) {
 
-        for (int i = 0; i < inscriptions.size(); i++) {
-            System.out.println(inscriptions.get(i).getId_inscription() + " " + inscriptions.get(i).getId_patient() + " " + inscriptions.get(i).getId_hospital());
-        }
+        if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
+                || hospital.getTxtAge().getText().isEmpty() || hospital.getTxtTutor().getText().isEmpty()
+                || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
+                || hospital.getDateChooser().getDate() == null) {
 
-        String name = hospital.getTxtName().getText();
-        String lastName = hospital.getTxtLastName().getText();
-        String age = hospital.getTxtAge().getText();
-        String gender = (String) hospital.getCombGender().getSelectedItem();
-
-        java.util.Date date = hospital.getDateChooser().getDate();
-        java.sql.Date sqldate = new java.sql.Date(date.getTime());
-
-        java.sql.Date dateBirth = sqldate;
-        String originCity = hospital.getTxtOriginCity().getText();
-        String tutorName = hospital.getTxtTutor().getText();
-        String telephone = hospital.getTxtTelephone().getText();
-        String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-        boolean isNumericTelephone = false;
-        boolean isNumericAge = false;
-        boolean isLetterName = false;
-        boolean isLetterLastName = false;
-        boolean isLetterTutorName = false;
-
-        isLetterName = activities.isLetter(name);
-        System.out.println(isLetterName);
-        isLetterLastName = activities.isLetter(lastName);
-        System.out.println(isLetterLastName);
-        isLetterTutorName = activities.isLetter(tutorName);
-        System.out.println(isLetterTutorName);
-        isNumericTelephone = activities.isNumericTelephone(telephone);
-        isNumericAge = activities.isNumericAge(age);
-
-        if (isNumericTelephone == false) {
-            JOptionPane.showMessageDialog(null, "Only numbers or 9-10 numbers necessary");
-        } else if (isNumericAge == false) {
-            JOptionPane.showMessageDialog(null, "Only numbers or 1-2 numbers necessary");
-        } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
-            JOptionPane.showMessageDialog(null, "Only letters");
+            JOptionPane.showMessageDialog(null, "Empty boxes, fill them");
         } else {
 
-            int id_hospital = 1;
-            for (int i = 0; i < hospitals.size(); i++) {
-                if (originHospital.equals(hospitals.get(i).getName())) {
-                    id_hospital = hospitals.get(i).getId_hospital();
-                }
-            }
+            String name = hospital.getTxtName().getText();
+            String lastName = hospital.getTxtLastName().getText();
+            String age = hospital.getTxtAge().getText();
+            String gender = (String) hospital.getCombGender().getSelectedItem();
 
-            int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
-            TableChildren();
-            activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
-            TableChildren();
-            cleanData();
+            java.util.Date date = hospital.getDateChooser().getDate();
+            java.sql.Date sqldate = new java.sql.Date(date.getTime());
+
+            java.sql.Date dateBirth = sqldate;
+            String originCity = hospital.getTxtOriginCity().getText();
+            String tutorName = hospital.getTxtTutor().getText();
+            String telephone = hospital.getTxtTelephone().getText();
+            String originHospital = (String) hospital.getCombHospital().getSelectedItem();
+
+            boolean isNumericTelephone = false;
+            boolean isNumericAge = false;
+            boolean isLetterName = false;
+            boolean isLetterLastName = false;
+            boolean isLetterTutorName = false;
+
+            isLetterName = activities.isLetter(name);
+            System.out.println(isLetterName);
+            isLetterLastName = activities.isLetter(lastName);
+            System.out.println(isLetterLastName);
+            isLetterTutorName = activities.isLetter(tutorName);
+            System.out.println(isLetterTutorName);
+            isNumericTelephone = activities.isNumericTelephone(telephone);
+            isNumericAge = activities.isNumericAge(age);
+
+            if (isNumericTelephone == false) {
+                JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
+            } else if (isNumericAge == false) {
+                JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
+            } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
+                JOptionPane.showMessageDialog(null, "Only letters");
+            } else {
+
+                int id_hospital = 1;
+                for (int i = 0; i < hospitals.size(); i++) {
+                    if (originHospital.equals(hospitals.get(i).getName())) {
+                        id_hospital = hospitals.get(i).getId_hospital();
+                    }
+                }
+
+                int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
+                TableChildren();
+                activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
+                TableChildren();
+                cleanData();
+            }
         }
 
     }
 
     public void modifyPatient(ActionEvent e) {
-        String name = hospital.getTxtName().getText();
-        String lastName = hospital.getTxtLastName().getText();
-        String age = hospital.getTxtAge().getText();
-        String gender = (String) hospital.getCombGender().getSelectedItem();
-        //java.sql.Date dateBirth = activities.generateDate();
-
-        java.util.Date date = hospital.getDateChooser().getDate();
-        java.sql.Date sqldate = new java.sql.Date(date.getTime());
-
-        java.sql.Date dateBirth = sqldate;
-
-        String originCity = hospital.getTxtOriginCity().getText();
-        String tutorName = hospital.getTxtTutor().getText();
-        String telephone = hospital.getTxtTelephone().getText();
-        String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-        boolean isNumericTelephone = false;
-        boolean isNumericAge = false;
-        boolean isLetterName = false;
-        boolean isLetterLastName = false;
-        boolean isLetterTutorName = false;
-
-        isLetterName = activities.isLetter(name);
-        System.out.println(isLetterName);
-        isLetterLastName = activities.isLetter(lastName);
-        System.out.println(isLetterLastName);
-        isLetterTutorName = activities.isLetter(tutorName);
-        System.out.println(isLetterTutorName);
-
-        isNumericTelephone = activities.isNumericTelephone(telephone);
-        isNumericAge = activities.isNumericAge(age);
-
-        if (isNumericTelephone == false) {
-            JOptionPane.showMessageDialog(null, "Only numbers or 9-10 numbers necessary");
-        } else if (isNumericAge == false) {
-            JOptionPane.showMessageDialog(null, "Only numbers or 1-2 numbers necessary");
-        } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
-            JOptionPane.showMessageDialog(null, "Only letters");
+        if (currentId == 0) {
+            JOptionPane.showMessageDialog(null, "Select a patient");
         } else {
-            int id_hospital = 0;
-            for (int j = 0; j < hospitals.size(); j++) {
-                if (hospitals.get(j).getName().equals(originHospital)) {
-                    System.out.println(hospitals.get(j).getName() + " = " + originHospital);
-                    id_hospital = hospitals.get(j).getId_hospital();
+
+            if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
+                    || hospital.getTxtAge().getText().isEmpty() || hospital.getTxtTutor().getText().isEmpty()
+                    || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
+                    || hospital.getDateChooser().getDate() == null) {
+
+                JOptionPane.showMessageDialog(null, "Empty boxes, fill them");
+            } else {
+
+                String name = hospital.getTxtName().getText();
+                String lastName = hospital.getTxtLastName().getText();
+                String age = hospital.getTxtAge().getText();
+                String gender = (String) hospital.getCombGender().getSelectedItem();
+                //java.sql.Date dateBirth = activities.generateDate();
+
+                java.util.Date date = hospital.getDateChooser().getDate();
+                java.sql.Date sqldate = new java.sql.Date(date.getTime());
+                java.sql.Date dateBirth = sqldate;
+
+                String originCity = hospital.getTxtOriginCity().getText();
+                String tutorName = hospital.getTxtTutor().getText();
+                String telephone = hospital.getTxtTelephone().getText();
+                String originHospital = (String) hospital.getCombHospital().getSelectedItem();
+                boolean isNumericTelephone = false;
+                boolean isNumericAge = false;
+                boolean isLetterName = false;
+                boolean isLetterLastName = false;
+                boolean isLetterTutorName = false;
+
+                isLetterName = activities.isLetter(name);
+                System.out.println(isLetterName);
+                isLetterLastName = activities.isLetter(lastName);
+                System.out.println(isLetterLastName);
+                isLetterTutorName = activities.isLetter(tutorName);
+                System.out.println(isLetterTutorName);
+
+                isNumericTelephone = activities.isNumericTelephone(telephone);
+                isNumericAge = activities.isNumericAge(age);
+
+                if (isNumericTelephone == false) {
+                    JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
+                } else if (isNumericAge == false) {
+                    JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
+                } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
+                    JOptionPane.showMessageDialog(null, "Only letters");
+                } else {
+                    int id_hospital = 0;
+                    for (int j = 0; j < hospitals.size(); j++) {
+                        if (hospitals.get(j).getName().equals(originHospital)) {
+                            System.out.println(hospitals.get(j).getName() + " = " + originHospital);
+                            id_hospital = hospitals.get(j).getId_hospital();
+                        }
+                    }
+
+                    activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
+
+                    TableChildren();
+                    cleanData();
+                    currentId=0;
                 }
             }
-
-            activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
-
-            TableChildren();
-            cleanData();
         }
     }
 
     public void deletePatient(ActionEvent e) {
-        activities.deletePatient(currentId);
-        TableChildren();
-        cleanData();
+        if (currentId == 0) {
+            JOptionPane.showMessageDialog(null, "Select a patient");
+        } else {
+            System.out.println(currentId);
+            activities.deletePatient(currentId);
+            TableChildren();
+            cleanData();
+            currentId = 0;
+        }
     }
 
     MouseListener tbClick = new MouseListener() {

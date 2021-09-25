@@ -9,6 +9,7 @@ import Data.Hospital;
 import Data.Inscription;
 import Data.Patient;
 import DataBase.Conexion;
+import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -232,9 +233,20 @@ public class Operations {
     public boolean isNumericTelephone(String number) {
         return number.matches("[0-9]{9,10}");
     }
-    
+
     public boolean isNumericAge(String number) {
-        return number.matches("[0-9]{1,2}");
+        boolean result = false;
+
+        if (number.matches(number) == true) {
+            String ageArray[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "11", "12", "13", "14", "15", "16", "17", "18"};
+
+            for (int i = 0; i < ageArray.length; i++) {
+                if (number.equals(ageArray[i])) {
+                    result = true;
+                }
+            }
+        }
+        return result;
     }
 
     public boolean isLetter(String words) {
