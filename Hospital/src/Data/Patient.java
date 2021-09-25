@@ -17,14 +17,14 @@ public class Patient {
     int id_patient;
     String name;
     String lastname;
-    int age;
+    String age;
     String gender;
     java.sql.Date dateBirth;
     String originCity;
     String tutorName;
     String telephone;
 
-    public Patient(int id_patient,String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, String telephone) {
+    public Patient(int id_patient,String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, String telephone) {
         this.id_patient = id_patient;
         this.name = name;
         this.lastname = lastname;
@@ -48,7 +48,7 @@ public class Patient {
         return lastname;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
@@ -80,7 +80,7 @@ public class Patient {
         this.lastname = lastname;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

@@ -56,7 +56,7 @@ public class ControllerHospitalView {
 
         String name = hospital.getTxtName().getText();
         String lastName = hospital.getTxtLastName().getText();
-        int age = Integer.parseInt(hospital.getTxtAge().getText());
+        String age = hospital.getTxtAge().getText();
         String gender = (String) hospital.getCombGender().getSelectedItem();
 
         java.util.Date date = hospital.getDateChooser().getDate();
@@ -67,8 +67,8 @@ public class ControllerHospitalView {
         String tutorName = hospital.getTxtTutor().getText();
         String telephone = hospital.getTxtTelephone().getText();
         String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-
-        boolean isNumeric = false;
+        boolean isNumericTelephone = false;
+        boolean isNumericAge = false;
         boolean isLetterName = false;
         boolean isLetterLastName = false;
         boolean isLetterTutorName = false;
@@ -79,11 +79,13 @@ public class ControllerHospitalView {
         System.out.println(isLetterLastName);
         isLetterTutorName = activities.isLetter(tutorName);
         System.out.println(isLetterTutorName);
+        isNumericTelephone = activities.isNumericTelephone(telephone);
+        isNumericAge = activities.isNumericAge(age);
 
-        isNumeric = activities.isNumericTelephone(telephone);
-
-        if (isNumeric == false) {
+        if (isNumericTelephone == false) {
             JOptionPane.showMessageDialog(null, "Only numbers or 9-10 numbers necessary");
+        } else if (isNumericAge == false) {
+            JOptionPane.showMessageDialog(null, "Only numbers or 1-2 numbers necessary");
         } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
             JOptionPane.showMessageDialog(null, "Only letters");
         } else {
@@ -107,7 +109,7 @@ public class ControllerHospitalView {
     public void modifyPatient(ActionEvent e) {
         String name = hospital.getTxtName().getText();
         String lastName = hospital.getTxtLastName().getText();
-        int age = Integer.parseInt(hospital.getTxtAge().getText().trim());
+        String age = hospital.getTxtAge().getText();
         String gender = (String) hospital.getCombGender().getSelectedItem();
         //java.sql.Date dateBirth = activities.generateDate();
 
@@ -120,7 +122,8 @@ public class ControllerHospitalView {
         String tutorName = hospital.getTxtTutor().getText();
         String telephone = hospital.getTxtTelephone().getText();
         String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-        boolean isNumeric = false;
+        boolean isNumericTelephone = false;
+        boolean isNumericAge = false;
         boolean isLetterName = false;
         boolean isLetterLastName = false;
         boolean isLetterTutorName = false;
@@ -132,10 +135,13 @@ public class ControllerHospitalView {
         isLetterTutorName = activities.isLetter(tutorName);
         System.out.println(isLetterTutorName);
 
-        isNumeric = activities.isNumericTelephone(telephone);
+        isNumericTelephone = activities.isNumericTelephone(telephone);
+        isNumericAge = activities.isNumericAge(age);
 
-        if (isNumeric == false) {
+        if (isNumericTelephone == false) {
             JOptionPane.showMessageDialog(null, "Only numbers or 9-10 numbers necessary");
+        } else if (isNumericAge == false) {
+            JOptionPane.showMessageDialog(null, "Only numbers or 1-2 numbers necessary");
         } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false) {
             JOptionPane.showMessageDialog(null, "Only letters");
         } else {
@@ -174,7 +180,7 @@ public class ControllerHospitalView {
                 hospital.getTxtName().setText(patient.get(i).getName());
                 hospital.getTxtLastName().setText(patient.get(i).getLastname());
                 hospital.getTxtOriginCity().setText(patient.get(i).getOriginCity());
-                hospital.getTxtAge().setText(String.valueOf(patient.get(i).getAge()));
+                hospital.getTxtAge().setText(patient.get(i).getAge());
                 hospital.getTxtTutor().setText(patient.get(i).getTutorName());
                 hospital.getTxtTelephone().setText(patient.get(i).getTelephone());
                 hospital.getCombGender().setSelectedItem(patient.get(i).getGender());

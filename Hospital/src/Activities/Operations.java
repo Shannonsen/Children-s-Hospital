@@ -41,7 +41,7 @@ public class Operations {
             rs = st.executeQuery("select * from patients");
 
             while (rs.next()) {
-                patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getInt("age"),
+                patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
                         rs.getString("telephone")));
                 countrow++;
@@ -92,7 +92,7 @@ public class Operations {
             rs = st.executeQuery("select * from patients WHERE id_patient=" + id_patient);
 
             while (rs.next()) {
-                patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getInt("age"),
+                patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
                         rs.getString("telephone")));
             }
@@ -103,14 +103,14 @@ public class Operations {
 
     }
 
-    public void updatePatient(int id_patient, String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity,
+    public void updatePatient(int id_patient, String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
             String tutorName, String telephone, int id_hospital) {
 
         try {
             PreparedStatement insert = cn.prepareCall("UPDATE Patients SET name=?,last_name=?,age=?,gender=?,date_Birth=?,origin_city=?,tutor_name=?,telephone=? WHERE id_patient=?");
             insert.setString(1, name);
             insert.setString(2, lastname);
-            insert.setInt(3, age);
+            insert.setString(3, age);
             insert.setString(4, gender);
             insert.setDate(5, dateBirth);
             insert.setString(6, originCity);
@@ -159,14 +159,14 @@ public class Operations {
 
     }
 
-    public int addPatientMysql(String name, String lastname, int age, String gender, java.sql.Date dateBirth, String originCity,
+    public int addPatientMysql(String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
             String tutorName, String telephone) {
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone)"
                     + "VALUES (?,?,?,?,?,?,?,?)");
             insert.setString(1, name);
             insert.setString(2, lastname);
-            insert.setInt(3, age);
+            insert.setString(3, age);
             insert.setString(4, gender);
             insert.setDate(5, dateBirth);
             insert.setString(6, originCity);
@@ -231,6 +231,10 @@ public class Operations {
 
     public boolean isNumericTelephone(String number) {
         return number.matches("[0-9]{9,10}");
+    }
+    
+    public boolean isNumericAge(String number) {
+        return number.matches("[0-9]{1,2}");
     }
 
     public boolean isLetter(String words) {
