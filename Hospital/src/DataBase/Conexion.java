@@ -19,7 +19,7 @@ public class Conexion {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital", "Shannon", "mysqlpass");
             JOptionPane.showMessageDialog(null, "Succesful conection");
         } catch (Exception e) {
-            System.out.println("Error:" + e);
+             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return cn;
     }

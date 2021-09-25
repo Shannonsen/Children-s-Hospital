@@ -178,7 +178,6 @@ public class Operations {
 
             JOptionPane.showMessageDialog(null, "Succesfull delete patient");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
