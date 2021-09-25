@@ -9,14 +9,11 @@ import Data.Hospital;
 import Data.Inscription;
 import Data.Patient;
 import DataBase.Conexion;
-import DataBase.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -50,7 +47,7 @@ public class Operations {
                 countrow++;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return patients;
     }
@@ -66,7 +63,7 @@ public class Operations {
                 hospitals.add(new Hospital(rs.getInt("id_hospital"), rs.getString("name"), rs.getString("address"), rs.getString("telephone")));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return hospitals;
     }
@@ -82,7 +79,7 @@ public class Operations {
                 inscriptions.add(new Inscription(rs.getInt("id_inscription"), rs.getInt("id_patient"), rs.getInt("id_hospital"), rs.getDate("date_inscription")));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return inscriptions;
     }
@@ -100,7 +97,7 @@ public class Operations {
                         rs.getString("telephone")));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return patients;
 
@@ -127,7 +124,6 @@ public class Operations {
             JOptionPane.showMessageDialog(null, "Succesfull update patient");
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
@@ -141,18 +137,13 @@ public class Operations {
             insert.setInt(3, id_patient);
             insert.executeUpdate();
 
-            System.out.println("Succesfull update Inscription");
+            JOptionPane.showMessageDialog(null, "Succesfull update Inscription");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 
     public void addInscription(int id_patient, int id_hospital) {
-        /*
-         System.out.println("Origin hospital:");
-         printHospitals(getHospitals());
-         int id_hospital = intScanner.nextInt();
-         */
 
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Inscriptions(id_patient,id_hospital,date_inscription) VALUES (?,?,?)");
@@ -161,9 +152,9 @@ public class Operations {
             insert.setDate(3, generateDate());
             insert.executeUpdate();
 
-            System.out.println("Succesfull Inscription");
+            JOptionPane.showMessageDialog(null, "Succesfull Inscription");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }
@@ -188,10 +179,7 @@ public class Operations {
             ArrayList<Patient> patients = new ArrayList<Patient>();
             getPatients();
 
-            System.out.println("Succesfull sending");
-
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return countrow;
@@ -218,7 +206,7 @@ public class Operations {
             st = cn.createStatement();
             rs = st.executeQuery("ALTER TABLE patients  AUTO_INCREMENT = 1;");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }
@@ -229,55 +217,9 @@ public class Operations {
             st = cn.createStatement();
             rs = st.executeQuery("ALTER TABLE inscriptions  AUTO_INCREMENT = 1;");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
-    }
-
-    public void addPatient() {
-
-        System.out.println("name:");
-        String name = strScanner.nextLine();
-        System.out.println("last name: ");
-        String last_name = strScanner.nextLine();
-
-        System.out.println("age: ");
-        int age = intScanner.nextInt();
-        System.out.println("gender: ");
-        String gender = strScanner.nextLine();
-        System.out.println("Date birth:");
-        System.out.println("Date: ");
-        int date = intScanner.nextInt();
-        System.out.println("Month: ");
-        int month = intScanner.nextInt();
-        System.out.println("Year: ");
-        int year = intScanner.nextInt();
-        System.out.println("origin city: ");
-        String originCity = strScanner.nextLine();
-        System.out.println("tutor name: ");
-        String tutorName = strScanner.nextLine();
-        System.out.println("telephone: ");
-        int telephone = intScanner.nextInt();
-
-        // addPatientMysql(name, last_name, age, gender, generateDateBirth(date, month, year), originCity, tutorName, telephone);
-    }
-
-    public void printHospitals(ArrayList<Hospital> hospitals) {
-
-        for (int t = 0; t < hospitals.size(); t++) {
-            System.out.println(hospitals.get(t).getId_hospital() + " " + hospitals.get(t).getName() + " " + hospitals.get(t).getAddress() + " " + hospitals.get(t).getTelephone());
-        }
-    }
-
-    public void printPatients(ArrayList<Patient> patients) {
-
-        for (int t = 0; t < patients.size(); t++) {
-            System.out.println(patients.get(t).getId_patient() + " " + patients.get(t).getName() + " " + patients.get(t).getLastname() + " " + patients.get(t).getDateBirth());
-        }
-    }
-
-    public void menu() {
-        System.out.println("\n 1.Patient register \n 2.Edit patient register \n 3.Query patients \n 4.Delete patient");
     }
 
     public java.sql.Date generateDate() {
@@ -287,22 +229,8 @@ public class Operations {
         return sqldate;
     }
 
-    public java.sql.Date generateDateBirth(int date, int month, int year) {
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.DATE, date);
-        calendar.set(Calendar.MONTH, month - 1);
-        calendar.set(Calendar.YEAR, year);
-
-        Date dateone = calendar.getTime();
-
-        java.sql.Date sqldate = new java.sql.Date(dateone.getTime());
-
-        return sqldate;
-    }
-
-    public boolean isNumeric(String number) {
-        return number.matches("[0-9]*");
+    public boolean isNumericTelephone(String number) {
+        return number.matches("[0-9]{1,10}");
     }
 
     public boolean isLetter(String words) {
