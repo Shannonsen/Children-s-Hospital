@@ -1,16 +1,11 @@
 package View;
 
-
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Shannon
- */
 public class HospitalView extends javax.swing.JFrame {
 
     public HospitalView() {
