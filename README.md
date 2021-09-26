@@ -17,8 +17,9 @@ ERD:
 
 Características generales del programa:
 1. Lenguaje de programación Java
-2. Creación de base de datos y sus relaciones
-3. Utilización de java Swing para la GUI
+2. Puntos en el código basados en el estandar de codificación de Oracle "Code Conventions"
+3. Creación de base de datos y sus relaciones
+4. Utilización de java Swing para la GUI
 
 Nota: Dentro de la carpeta Photos se encontrará una serie de fotos donde se observa la ejecución del CRUD.
 
