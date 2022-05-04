@@ -238,7 +238,7 @@ public class Operations {
 
     public boolean isOnlyWhiteSpace(String text){
       text = text.replaceAll("\\s", "");
-      return text.length() > 0 ? true : false;
+      return text.length() > 0 ? false : true;
     }
 
 }
