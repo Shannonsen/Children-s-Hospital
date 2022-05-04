@@ -140,6 +140,14 @@ public class ControllerHospitalView {
                 String tutorName = hospital.getTxtTutor().getText();
                 String telephone = hospital.getTxtTelephone().getText();
                 String originHospital = (String) hospital.getCombHospital().getSelectedItem();
+
+                if(activities.isOnlyWhiteSpace(name) || activities.isOnlyWhiteSpace(lastName)
+                  || activities.isOnlyWhiteSpace(originCity) || activities.isOnlyWhiteSpace(tutorName)
+                  || activities.isOnlyWhiteSpace(telephone)) {
+                  JOptionPane.showMessageDialog(null, "A Field only contain whitespace, delete them");
+                  return ;
+                }
+
                 boolean isNumericTelephone = false;
                 boolean isNumericAge = false;
                 boolean isLetterName = false;
