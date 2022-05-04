@@ -35,7 +35,7 @@ public class Operations {
             while (rs.next()) {
                 patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getString("telephone")));
+                        rs.getString("telephone"), rs.getString("type_blood")));
                 countrow++;
             }
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class Operations {
             while (rs.next()) {
                 patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getString("telephone")));
+                        rs.getString("telephone"), rs.getString("type_blood")));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -95,9 +95,9 @@ public class Operations {
     }
 
     public void updatePatient(int id_patient, String name, String lastname, String age, String gender, java.sql.Date dateBirth,
-            String originCity, String tutorName, String telephone, int id_hospital) {
+            String originCity, String tutorName, String telephone, String type_blood, int id_hospital) {
         try {
-            PreparedStatement insert = cn.prepareCall("UPDATE Patients SET name=?,last_name=?,age=?,gender=?,date_Birth=?,origin_city=?,tutor_name=?,telephone=? WHERE id_patient=?");
+            PreparedStatement insert = cn.prepareCall("UPDATE Patients SET name=?,last_name=?,age=?,gender=?,date_Birth=?,origin_city=?,tutor_name=?,telephone=?, type_blood=? WHERE id_patient=?");
             insert.setString(1, name);
             insert.setString(2, lastname);
             insert.setString(3, age);
@@ -106,7 +106,8 @@ public class Operations {
             insert.setString(6, originCity);
             insert.setString(7, tutorName);
             insert.setString(8, telephone);
-            insert.setInt(9, id_patient);
+            insert.setString(9, type_blood);
+            insert.setInt(10, id_patient);
             insert.executeUpdate();
 
             updateInscription(id_patient, id_hospital);
@@ -146,12 +147,12 @@ public class Operations {
     }
 
     public int addPatientMysql(String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
-            String tutorName, String telephone) {
+            String tutorName, String telephone, String type_blood) {
         countrow = 0;
         ArrayList<Patient> patients = new ArrayList<Patient>();
         try {
-            PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone)"
-                    + "VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone, type_blood)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?)");
             insert.setString(1, name);
             insert.setString(2, lastname);
             insert.setString(3, age);
@@ -160,6 +161,7 @@ public class Operations {
             insert.setString(6, originCity);
             insert.setString(7, tutorName);
             insert.setString(8, telephone);
+            insert.setString(9, type_blood);
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Succesfull patient");

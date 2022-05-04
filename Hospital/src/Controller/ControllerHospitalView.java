@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +31,8 @@ public class ControllerHospitalView {
         initComponents();
         hospital.getCombGender().addItem("F");
         hospital.getCombGender().addItem("M");
+        String[] typebloods = {"O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"};
+        hospital.getCombTypeBlood().setModel(new DefaultComboBoxModel(typebloods));
         for (int i = 0; i < hospitals.size(); i++) {
             hospital.getCombHospital().addItem(hospitals.get(i).getName());
         }
@@ -65,6 +68,7 @@ public class ControllerHospitalView {
             String originCity = hospital.getTxtOriginCity().getText();
             String tutorName = hospital.getTxtTutor().getText();
             String telephone = hospital.getTxtTelephone().getText();
+            String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
             String originHospital = (String) hospital.getCombHospital().getSelectedItem();
 
             boolean isNumericTelephone = false;
@@ -96,8 +100,9 @@ public class ControllerHospitalView {
                     }
                 }
 
-                int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
+                int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, typeBlood);
                 TableChildren();
+                
                 activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
                 TableChildren();
                 cleanData();
@@ -132,6 +137,7 @@ public class ControllerHospitalView {
                 String originCity = hospital.getTxtOriginCity().getText();
                 String tutorName = hospital.getTxtTutor().getText();
                 String telephone = hospital.getTxtTelephone().getText();
+                String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
                 String originHospital = (String) hospital.getCombHospital().getSelectedItem();
                 boolean isNumericTelephone = false;
                 boolean isNumericAge = false;
@@ -161,7 +167,7 @@ public class ControllerHospitalView {
                         }
                     }
 
-                    activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
+                    activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, typeBlood, id_hospital);
 
                     TableChildren();
                     cleanData();
@@ -201,6 +207,7 @@ public class ControllerHospitalView {
                 hospital.getTxtTelephone().setText(patient.get(i).getTelephone());
                 hospital.getCombGender().setSelectedItem(patient.get(i).getGender());
                 hospital.getDateChooser().setDate(patient.get(i).getDateBirth());
+                hospital.getCombTypeBlood().setSelectedItem(patient.get(i).getTypeBlood());
 
                 for (int j = 0; j < inscriptions.size(); j++) {
                     if (id == inscriptions.get(j).getId_patient()) {
@@ -241,7 +248,7 @@ public class ControllerHospitalView {
         DefaultTableModel tableChildren = (DefaultTableModel) hospital.getTbChildren().getModel();
         tableChildren.setRowCount(0);
 
-        Object rowData[] = new Object[11];
+        Object rowData[] = new Object[12];
 
         for (int i = 0; i < patients.size(); i++) {
             rowData[0] = patients.get(i).getId_patient();
@@ -266,6 +273,7 @@ public class ControllerHospitalView {
             rowData[8] = patients.get(i).getTutorName();
             rowData[9] = patients.get(i).getTelephone();
             rowData[10] = patients.get(i).getOriginCity();
+            rowData[11] = patients.get(i).getTypeBlood();
             tableChildren.addRow(rowData);
         }
     }
