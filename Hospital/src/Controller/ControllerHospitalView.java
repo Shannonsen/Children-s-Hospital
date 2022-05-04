@@ -8,14 +8,12 @@ import Data.Patient;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Shannon
- */
 public class ControllerHospitalView {
 
     private final HospitalView hospital;
@@ -46,7 +44,7 @@ public class ControllerHospitalView {
     private void addPatient(ActionEvent e) {
 
         if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
-                || hospital.getTxtAge().getText().isEmpty() || hospital.getTxtTutor().getText().isEmpty()
+                || hospital.getTxtTutor().getText().isEmpty()
                 || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
                 || hospital.getDateChooser().getDate() == null) {
 
@@ -55,11 +53,12 @@ public class ControllerHospitalView {
 
             String name = hospital.getTxtName().getText();
             String lastName = hospital.getTxtLastName().getText();
-            String age = hospital.getTxtAge().getText();
             String gender = (String) hospital.getCombGender().getSelectedItem();
 
             java.util.Date date = hospital.getDateChooser().getDate();
             java.sql.Date sqldate = new java.sql.Date(date.getTime());
+            LocalDate lclDate = LocalDate.parse(sqldate.toString());
+            int age = calculateAge(lclDate);
 
             java.sql.Date dateBirth = sqldate;
             String originCity = hospital.getTxtOriginCity().getText();
@@ -68,7 +67,6 @@ public class ControllerHospitalView {
             String originHospital = (String) hospital.getCombHospital().getSelectedItem();
 
             boolean isNumericTelephone = false;
-            boolean isNumericAge = false;
             boolean isLetterName = false;
             boolean isLetterLastName = false;
             boolean isLetterOriginCity = false;
@@ -79,13 +77,10 @@ public class ControllerHospitalView {
             isLetterTutorName = activities.isLetter(tutorName);
             isLetterOriginCity = activities.isLetter(originCity);
             isNumericTelephone = activities.isNumericTelephone(telephone);
-            isNumericAge = activities.isNumericAge(age);
 
-            if (isNumericTelephone == false) {
+            if (!isNumericTelephone) {
                 JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
-            } else if (isNumericAge == false) {
-                JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
-            } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false || isLetterOriginCity == false) {
+            }else if (!isLetterName||!isLetterLastName||!isLetterTutorName|| !isLetterOriginCity) {
                 JOptionPane.showMessageDialog(null, "Only letters");
             } else {
 
@@ -96,7 +91,7 @@ public class ControllerHospitalView {
                     }
                 }
 
-                int rowcount = activities.addPatientMysql(name, lastName, age, gender, dateBirth, originCity, tutorName, telephone);
+                int rowcount = activities.addPatientMysql(name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone);
                 TableChildren();
                 activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
                 TableChildren();
@@ -106,13 +101,24 @@ public class ControllerHospitalView {
 
     }
 
+
+
+    public static int calculateAge(LocalDate dob){      
+        LocalDate curDate = LocalDate.now();   
+        if ((dob != null) && (curDate != null)){  
+            return Period.between(dob, curDate).getYears();  
+        }else{  
+            return 0;  
+        }  
+    }  
+
     public void modifyPatient(ActionEvent e) {
         if (currentId == 0) {
             JOptionPane.showMessageDialog(null, "Select a patient");
         } else {
 
             if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
-                    || hospital.getTxtAge().getText().isEmpty() || hospital.getTxtTutor().getText().isEmpty()
+                    || hospital.getTxtTutor().getText().isEmpty()
                     || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
                     || hospital.getDateChooser().getDate() == null) {
 
@@ -121,7 +127,7 @@ public class ControllerHospitalView {
 
                 String name = hospital.getTxtName().getText();
                 String lastName = hospital.getTxtLastName().getText();
-                String age = hospital.getTxtAge().getText();
+                //String age = hospital.getTxtAge().getText();
                 String gender = (String) hospital.getCombGender().getSelectedItem();
                 //java.sql.Date dateBirth = activities.generateDate();
 
@@ -129,12 +135,15 @@ public class ControllerHospitalView {
                 java.sql.Date sqldate = new java.sql.Date(date.getTime());
                 java.sql.Date dateBirth = sqldate;
 
+                LocalDate lclDate = LocalDate.parse(sqldate.toString());
+                int age = calculateAge(lclDate);
+
                 String originCity = hospital.getTxtOriginCity().getText();
                 String tutorName = hospital.getTxtTutor().getText();
                 String telephone = hospital.getTxtTelephone().getText();
                 String originHospital = (String) hospital.getCombHospital().getSelectedItem();
                 boolean isNumericTelephone = false;
-                boolean isNumericAge = false;
+                //boolean isNumericAge = false;
                 boolean isLetterName = false;
                 boolean isLetterLastName = false;
                 boolean isLetterTutorName = false;
@@ -145,13 +154,10 @@ public class ControllerHospitalView {
                 isLetterTutorName = activities.isLetter(tutorName);
                 isLetterOriginCity = activities.isLetter(originCity);
                 isNumericTelephone = activities.isNumericTelephone(telephone);
-                isNumericAge = activities.isNumericAge(age);
 
-                if (isNumericTelephone == false) {
+                if (!isNumericTelephone) {
                     JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
-                } else if (isNumericAge == false) {
-                    JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
-                } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false || isLetterOriginCity == false) {
+                } else if (!isLetterName|| !isLetterLastName || !isLetterTutorName || !isLetterOriginCity) {
                     JOptionPane.showMessageDialog(null, "Only letters");
                 } else {
                     int id_hospital = 0;
@@ -161,7 +167,7 @@ public class ControllerHospitalView {
                         }
                     }
 
-                    activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, id_hospital);
+                    activities.updatePatient(currentId, name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, id_hospital);
 
                     TableChildren();
                     cleanData();
@@ -196,7 +202,7 @@ public class ControllerHospitalView {
                 hospital.getTxtName().setText(patient.get(i).getName());
                 hospital.getTxtLastName().setText(patient.get(i).getLastname());
                 hospital.getTxtOriginCity().setText(patient.get(i).getOriginCity());
-                hospital.getTxtAge().setText(patient.get(i).getAge());
+                //hospital.getTxtAge().setText(patient.get(i).getAge());
                 hospital.getTxtTutor().setText(patient.get(i).getTutorName());
                 hospital.getTxtTelephone().setText(patient.get(i).getTelephone());
                 hospital.getCombGender().setSelectedItem(patient.get(i).getGender());
@@ -274,7 +280,7 @@ public class ControllerHospitalView {
         hospital.getTxtName().setText("");
         hospital.getTxtLastName().setText("");
         hospital.getTxtOriginCity().setText("");
-        hospital.getTxtAge().setText("");
+        //hospital.getTxtAge().setText("");
         hospital.getTxtTutor().setText("");
         hospital.getTxtTelephone().setText("");
     }
