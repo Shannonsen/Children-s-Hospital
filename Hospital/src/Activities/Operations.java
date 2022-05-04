@@ -235,4 +235,10 @@ public class Operations {
         }
         return true;
     }
+
+    public boolean isOnlyWhiteSpace(String text){
+      text = text.replaceAll("\\s", "");
+      return text.length() > 0 ? true : false;
+    }
+
 }
