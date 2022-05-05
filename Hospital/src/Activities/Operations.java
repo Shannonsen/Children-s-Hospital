@@ -21,6 +21,7 @@ public class Operations {
     Scanner strScanner = new Scanner(System.in);
     Scanner intScanner = new Scanner(System.in);
     Connection cn = con.conexion();
+    boolean isConnected = cn != null; 
     Statement st = null;
     ResultSet rs = null;
     int countrow;
@@ -29,14 +30,19 @@ public class Operations {
         ArrayList<Patient> patients = new ArrayList<Patient>();
 
         try {
-            st = cn.createStatement();
-            rs = st.executeQuery("select * from patients");
+            if(isConnected){
+              st = cn.createStatement();
+              rs = st.executeQuery("select * from patients");
 
-            while (rs.next()) {
-                patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
-                        rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getString("telephone"), rs.getString("type_blood")));
-                countrow++;
+              while (rs.next()) {
+                  patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
+                          rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
+                          rs.getString("telephone"), rs.getString("type_blood")));
+                  countrow++;
+              }
+            }
+            else{
+              patients = LocalFileOperations.ReadFile();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
