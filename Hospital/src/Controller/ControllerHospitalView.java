@@ -52,178 +52,103 @@ public class ControllerHospitalView {
     }
 
     private void addPatient(ActionEvent e) {
-        if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
-                || hospital.getTxtTutor().getText().isEmpty()
-                || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
-                || hospital.getDateChooser().getDate() == null) {
-
-            JOptionPane.showMessageDialog(null, "Empty boxes, fill them");
-        } else {
-
-        try{
+        try {
             ManagerException.EmptyField(hospital.getTxtName().getText(), "Name");
             ManagerException.EmptyField(hospital.getTxtLastName().getText(), "Name");
             ManagerException.EmptyField(hospital.getTxtOriginCity().getText(), "City");
             ManagerException.DateValidation(hospital.getDateChooser().getDate(), "Date birth");
             ManagerException.EmptyField(hospital.getTxtTutor().getText(), "Tutor");
             ManagerException.TelephoneNumberValidation(hospital.getTxtTelephone().getText());
-        }catch(EmptyFieldException | InvalidDateException | NotAllowedCharacterException | InvalidLengthTelephoneException ex){
+        } catch (EmptyFieldException | InvalidDateException | NotAllowedCharacterException | InvalidLengthTelephoneException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return;
         }
-            String name = hospital.getTxtName().getText();
-            String lastName = hospital.getTxtLastName().getText();
-            String gender = (String) hospital.getCombGender().getSelectedItem();
+        String name = hospital.getTxtName().getText();
+        String lastName = hospital.getTxtLastName().getText();
+        String gender = (String) hospital.getCombGender().getSelectedItem();
 
-            java.util.Date date = hospital.getDateChooser().getDate();
-            java.sql.Date sqldate = new java.sql.Date(date.getTime());
-            LocalDate lclDate = LocalDate.parse(sqldate.toString());
-            int age = calculateAge(lclDate);
+        java.util.Date date = hospital.getDateChooser().getDate();
+        java.sql.Date sqldate = new java.sql.Date(date.getTime());
+        LocalDate lclDate = LocalDate.parse(sqldate.toString());
+        int age = calculateAge(lclDate);
 
-            java.sql.Date dateBirth = sqldate;
-            String originCity = hospital.getTxtOriginCity().getText();
-            String tutorName = hospital.getTxtTutor().getText();
-            String telephone = hospital.getTxtTelephone().getText();
-            String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
-            String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-            
-            if(activities.isOnlyWhiteSpace(name) || activities.isOnlyWhiteSpace(lastName)
-              || activities.isOnlyWhiteSpace(originCity) || activities.isOnlyWhiteSpace(tutorName)
-              || activities.isOnlyWhiteSpace(telephone)) {
-              JOptionPane.showMessageDialog(null, "A Field only contain whitespace, delete them");
-              return ;
-            }
+        java.sql.Date dateBirth = sqldate;
+        String originCity = hospital.getTxtOriginCity().getText();
+        String tutorName = hospital.getTxtTutor().getText();
+        String telephone = hospital.getTxtTelephone().getText();
+        String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
+        String originHospital = (String) hospital.getCombHospital().getSelectedItem();
 
-            boolean isNumericTelephone = false;
-            boolean isLetterName = false;
-            boolean isLetterLastName = false;
-            boolean isLetterOriginCity = false;
-            boolean isLetterTutorName = false;
-
-            isLetterName = activities.isLetter(name);
-            isLetterLastName = activities.isLetter(lastName);
-            isLetterTutorName = activities.isLetter(tutorName);
-            isLetterOriginCity = activities.isLetter(originCity);
-            isNumericTelephone = activities.isNumericTelephone(telephone);
-
-            if (!isNumericTelephone) {
-                JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
-            }else if (!isLetterName||!isLetterLastName||!isLetterTutorName|| !isLetterOriginCity) {
-            } else if (!isLetterName||!isLetterLastName||!isLetterTutorName|| !isLetterOriginCity) {
-                JOptionPane.showMessageDialog(null, "Only letters");
-            } else {
-
-                int id_hospital = 1;
-                for (int i = 0; i < hospitals.size(); i++) {
-                    if (originHospital.equals(hospitals.get(i).getName())) {
-                        id_hospital = hospitals.get(i).getId_hospital();
-                    }
-                }
-
-
-                int rowcount = activities.addPatientMysql(name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood);
-
-                TableChildren();
-                
-                activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
-                TableChildren();
-                cleanData();
+        int id_hospital = 1;
+        for (int i = 0; i < hospitals.size(); i++) {
+            if (originHospital.equals(hospitals.get(i).getName())) {
+                id_hospital = hospitals.get(i).getId_hospital();
             }
         }
 
+        int rowcount = activities.addPatientMysql(name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood);
+
+        TableChildren();
+
+        activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
+        TableChildren();
+        cleanData();
+
     }
 
-    public static int calculateAge(LocalDate dob){      
-        LocalDate curDate = LocalDate.now();   
-        if ((dob != null) && (curDate != null)){  
-            return Period.between(dob, curDate).getYears();  
-        }else{  
-            return 0;  
-        }  
-    }  
+    public static int calculateAge(LocalDate dob) {
+        LocalDate curDate = LocalDate.now();
+        if ((dob != null) && (curDate != null)) {
+            return Period.between(dob, curDate).getYears();
+        } else {
+            return 0;
+        }
+    }
 
     public void modifyPatient(ActionEvent e) {
-        try{
+        try {
             ManagerException.EmptyField(hospital.getTxtName().getText(), "Name");
             ManagerException.EmptyField(hospital.getTxtLastName().getText(), "Name");
             ManagerException.EmptyField(hospital.getTxtOriginCity().getText(), "City");
             ManagerException.DateValidation(hospital.getDateChooser().getDate(), "Date birth");
             ManagerException.EmptyField(hospital.getTxtTutor().getText(), "Tutor");
             ManagerException.TelephoneNumberValidation(hospital.getTxtTelephone().getText());
-        }catch(EmptyFieldException | InvalidDateException | NotAllowedCharacterException | InvalidLengthTelephoneException ex){
+        } catch (EmptyFieldException | InvalidDateException | NotAllowedCharacterException | InvalidLengthTelephoneException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return;
         }
         if (currentId == 0) {
             JOptionPane.showMessageDialog(null, "Select a patient");
         } else {
+            String name = hospital.getTxtName().getText();
+            String lastName = hospital.getTxtLastName().getText();
+            String gender = (String) hospital.getCombGender().getSelectedItem();
 
-            if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
-                    || hospital.getTxtTutor().getText().isEmpty()
-                    || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
-                    || hospital.getDateChooser().getDate() == null) {
+            java.util.Date date = hospital.getDateChooser().getDate();
+            java.sql.Date sqldate = new java.sql.Date(date.getTime());
+            java.sql.Date dateBirth = sqldate;
 
-                JOptionPane.showMessageDialog(null, "Empty boxes, fill them");
-            } else {
+            LocalDate lclDate = LocalDate.parse(sqldate.toString());
+            int age = calculateAge(lclDate);
 
-                String name = hospital.getTxtName().getText();
-                String lastName = hospital.getTxtLastName().getText();
-                //String age = hospital.getTxtAge().getText();
-                String gender = (String) hospital.getCombGender().getSelectedItem();
-                //java.sql.Date dateBirth = activities.generateDate();
+            String originCity = hospital.getTxtOriginCity().getText();
+            String tutorName = hospital.getTxtTutor().getText();
+            String telephone = hospital.getTxtTelephone().getText();
+            String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
+            String originHospital = (String) hospital.getCombHospital().getSelectedItem();
 
-                java.util.Date date = hospital.getDateChooser().getDate();
-                java.sql.Date sqldate = new java.sql.Date(date.getTime());
-                java.sql.Date dateBirth = sqldate;
-
-                LocalDate lclDate = LocalDate.parse(sqldate.toString());
-                int age = calculateAge(lclDate);
-
-                String originCity = hospital.getTxtOriginCity().getText();
-                String tutorName = hospital.getTxtTutor().getText();
-                String telephone = hospital.getTxtTelephone().getText();
-                String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
-                String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-
-                if(activities.isOnlyWhiteSpace(name) || activities.isOnlyWhiteSpace(lastName)
-                  || activities.isOnlyWhiteSpace(originCity) || activities.isOnlyWhiteSpace(tutorName)
-                  || activities.isOnlyWhiteSpace(telephone)) {
-                  JOptionPane.showMessageDialog(null, "A Field only contain whitespace, delete them");
-                  return ;
-                }
-
-                boolean isNumericTelephone = false;
-                //boolean isNumericAge = false;
-                boolean isLetterName = false;
-                boolean isLetterLastName = false;
-                boolean isLetterTutorName = false;
-                boolean isLetterOriginCity = false;
-
-                isLetterName = activities.isLetter(name);
-                isLetterLastName = activities.isLetter(lastName);
-                isLetterTutorName = activities.isLetter(tutorName);
-                isLetterOriginCity = activities.isLetter(originCity);
-                isNumericTelephone = activities.isNumericTelephone(telephone);
-
-                if (!isNumericTelephone) {
-                    JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
-
-                } else if (!isLetterName|| !isLetterLastName || !isLetterTutorName || !isLetterOriginCity) {
-                    JOptionPane.showMessageDialog(null, "Only letters");
-                } else {
-                    int id_hospital = 0;
-                    for (int j = 0; j < hospitals.size(); j++) {
-                        if (hospitals.get(j).getName().equals(originHospital)) {
-                            id_hospital = hospitals.get(j).getId_hospital();
-                        }
-                    }
-
-                    activities.updatePatient(currentId, name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood, id_hospital);
-                    TableChildren();
-                    cleanData();
-                    currentId = 0;
+            int id_hospital = 0;
+            for (int j = 0; j < hospitals.size(); j++) {
+                if (hospitals.get(j).getName().equals(originHospital)) {
+                    id_hospital = hospitals.get(j).getId_hospital();
                 }
             }
+
+            activities.updatePatient(currentId, name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood, id_hospital);
+            TableChildren();
+            cleanData();
+            currentId = 0;
+
         }
     }
 
@@ -237,8 +162,8 @@ public class ControllerHospitalView {
             currentId = 0;
         }
     }
-    
-    public void addHospital(ActionEvent e){
+
+    public void addHospital(ActionEvent e) {
         AddHospitalView addHospitalview = new AddHospitalView();
         addHospitalview.setLocationRelativeTo(null);
         addHospitalview.setVisible(true);
@@ -258,8 +183,7 @@ public class ControllerHospitalView {
             for (int i = 0; i < patient.size(); i++) {
                 hospital.getTxtName().setText(patient.get(i).getName());
                 hospital.getTxtLastName().setText(patient.get(i).getLastname());
-                hospital.getTxtOriginCity().setText(patient.get(i).getOriginCity());
-                //hospital.getTxtAge().setText(patient.get(i).getAge());
+                hospital.getTxtOriginCity().setText(patient.get(i).getOriginCity());         
                 hospital.getTxtTutor().setText(patient.get(i).getTutorName());
                 hospital.getTxtTelephone().setText(patient.get(i).getTelephone());
                 hospital.getCombGender().setSelectedItem(patient.get(i).getGender());
@@ -308,7 +232,7 @@ public class ControllerHospitalView {
         Object rowData[] = new Object[12];
 
         for (int i = 0; i < patients.size(); i++) {
-            if(patients.get(i).getIs_patient()){
+            if (patients.get(i).getIs_patient()) {
                 rowData[0] = patients.get(i).getId_patient();
                 rowData[1] = patients.get(i).getName();
                 rowData[2] = patients.get(i).getLastname();
@@ -326,13 +250,13 @@ public class ControllerHospitalView {
                         }
                     }
                 }
-            
-            rowData[7] = patients.get(i).getDateBirth();
-            rowData[8] = patients.get(i).getTutorName();
-            rowData[9] = patients.get(i).getTelephone();
-            rowData[10] = patients.get(i).getOriginCity();
-            rowData[11] = patients.get(i).getTypeBlood();
-            tableChildren.addRow(rowData);
+
+                rowData[7] = patients.get(i).getDateBirth();
+                rowData[8] = patients.get(i).getTutorName();
+                rowData[9] = patients.get(i).getTelephone();
+                rowData[10] = patients.get(i).getOriginCity();
+                rowData[11] = patients.get(i).getTypeBlood();
+                tableChildren.addRow(rowData);
 
             }
         }
@@ -342,7 +266,6 @@ public class ControllerHospitalView {
         hospital.getTxtName().setText("");
         hospital.getTxtLastName().setText("");
         hospital.getTxtOriginCity().setText("");
-        //hospital.getTxtAge().setText("");
         hospital.getTxtTutor().setText("");
         hospital.getTxtTelephone().setText("");
     }

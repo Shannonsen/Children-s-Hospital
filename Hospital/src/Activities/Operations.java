@@ -147,7 +147,6 @@ public class Operations {
     public int addPatientMysql(String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
             String tutorName, String telephone, String type_blood) {
         countrow = 0;
-        ArrayList<Patient> patients = new ArrayList<Patient>();
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone, type_blood, is_patient)"
                     + "VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -173,7 +172,6 @@ public class Operations {
     
     public int addHospitalMysql(String name, String address, String telephone) {
         countrow = 0;
-        ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO hospitals(name,address,telephone)"
                     + "VALUES (?,?,?)");
@@ -227,40 +225,6 @@ public class Operations {
         java.sql.Date sqldate = new java.sql.Date(date.getTime());
 
         return sqldate;
-    }
-
-    public boolean isNumericTelephone(String number) {
-        return number.matches("[0-9]{9,10}");
-    }
-
-    public boolean isNumericAge(String number) {
-        boolean result = false;
-
-        if (number.matches(number) == true) {
-            String ageArray[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"};
-
-            for (int i = 0; i < ageArray.length; i++) {
-                if (number.equals(ageArray[i])) {
-                    result = true;
-                }
-            }
-        }
-        return result;
-    }
-
-    public boolean isLetter(String words) {
-        for (int x = 0; x < words.length(); x++) {
-            char c = words.charAt(x);
-            if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isOnlyWhiteSpace(String text){
-      text = text.replaceAll("\\s", "");
-      return text.length() > 0 ? false : true;
     }
 
 }
