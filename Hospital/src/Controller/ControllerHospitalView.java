@@ -299,30 +299,33 @@ public class ControllerHospitalView {
         Object rowData[] = new Object[12];
 
         for (int i = 0; i < patients.size(); i++) {
-            rowData[0] = patients.get(i).getId_patient();
-            rowData[1] = patients.get(i).getName();
-            rowData[2] = patients.get(i).getLastname();
-            rowData[3] = patients.get(i).getAge();
-            rowData[4] = patients.get(i).getGender();
+            if(patients.get(i).getIs_patient()){
+                rowData[0] = patients.get(i).getId_patient();
+                rowData[1] = patients.get(i).getName();
+                rowData[2] = patients.get(i).getLastname();
+                rowData[3] = patients.get(i).getAge();
+                rowData[4] = patients.get(i).getGender();
 
-            for (int j = 0; j < inscriptions.size(); j++) {
-                if (inscriptions.get(j).getId_patient() == patients.get(i).getId_patient()) {
-                    rowData[6] = inscriptions.get(j).getDate_inscription();
+                for (int j = 0; j < inscriptions.size(); j++) {
+                    if (inscriptions.get(j).getId_patient() == patients.get(i).getId_patient()) {
+                        rowData[6] = inscriptions.get(j).getDate_inscription();
 
-                    for (int n = 0; n < hospitals.size(); n++) {
-                        if (inscriptions.get(j).getId_hospital() == hospitals.get(n).getId_hospital()) {
-                            rowData[5] = hospitals.get(n).getName();
+                        for (int n = 0; n < hospitals.size(); n++) {
+                            if (inscriptions.get(j).getId_hospital() == hospitals.get(n).getId_hospital()) {
+                                rowData[5] = hospitals.get(n).getName();
+                            }
                         }
                     }
                 }
-            }
-
+            
             rowData[7] = patients.get(i).getDateBirth();
             rowData[8] = patients.get(i).getTutorName();
             rowData[9] = patients.get(i).getTelephone();
             rowData[10] = patients.get(i).getOriginCity();
             rowData[11] = patients.get(i).getTypeBlood();
             tableChildren.addRow(rowData);
+
+            }
         }
     }
 
