@@ -77,6 +77,13 @@ public class ControllerHospitalView {
             String telephone = hospital.getTxtTelephone().getText();
             String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
             String originHospital = (String) hospital.getCombHospital().getSelectedItem();
+            
+            if(activities.isOnlyWhiteSpace(name) || activities.isOnlyWhiteSpace(lastName)
+              || activities.isOnlyWhiteSpace(originCity) || activities.isOnlyWhiteSpace(tutorName)
+              || activities.isOnlyWhiteSpace(telephone)) {
+              JOptionPane.showMessageDialog(null, "A Field only contain whitespace, delete them");
+              return ;
+            }
 
             boolean isNumericTelephone = false;
             boolean isNumericAge = false;
@@ -144,6 +151,14 @@ public class ControllerHospitalView {
                 String telephone = hospital.getTxtTelephone().getText();
                 String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
                 String originHospital = (String) hospital.getCombHospital().getSelectedItem();
+
+                if(activities.isOnlyWhiteSpace(name) || activities.isOnlyWhiteSpace(lastName)
+                  || activities.isOnlyWhiteSpace(originCity) || activities.isOnlyWhiteSpace(tutorName)
+                  || activities.isOnlyWhiteSpace(telephone)) {
+                  JOptionPane.showMessageDialog(null, "A Field only contain whitespace, delete them");
+                  return ;
+                }
+
                 boolean isNumericTelephone = false;
                 boolean isNumericAge = false;
                 boolean isLetterName = false;
