@@ -18,7 +18,7 @@ public class ManagerException {
     }
 
     public static void OnlyNumberField(String value, String field) throws NotAllowedCharacterException {
-        if (value.trim().chars().allMatch(Character::isDigit)) {
+        if (!(value.trim().chars().allMatch(Character::isDigit))) {
             throw new NotAllowedCharacterException(field);
         }
     }
@@ -26,7 +26,8 @@ public class ManagerException {
     public static void TelephoneNumberValidation(String value) throws NotAllowedCharacterException, InvalidLengthTelephoneException{
         OnlyNumberField(value, "Telephone");
         String number = value.replaceAll("\\s","");
-        if (number.length() > 8 && number.length() < 11) {
+        System.out.println(number.length());
+        if (number.length() < 9 || number.length() > 10) {
             throw new InvalidLengthTelephoneException();
         }
     }
