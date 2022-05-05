@@ -5,6 +5,8 @@
  */
 package Exceptions;
 
+import Activities.OperationsLogic;
+
 /**
  *
  * @author Noé
@@ -22,12 +24,13 @@ public class ManagerException {
             throw new NotAllowedCharacterException(field);
         }
     }
-    
-    public static void TelephoneNumberValidation(String value) throws NotAllowedCharacterException, InvalidLengthTelephoneException{
+
+    public static void TelephoneNumberValidation(String value) throws NotAllowedCharacterException, InvalidLengthTelephoneException {
+        OperationsLogic activities = new OperationsLogic();
         OnlyNumberField(value, "Telephone");
-        String number = value.replaceAll("\\s","");
+        String number = value.replaceAll("\\s", "");
         System.out.println(number.length());
-        if (number.length() < 9 || number.length() > 10) {
+        if (activities.isValidLenght(number)) {
             throw new InvalidLengthTelephoneException();
         }
     }
@@ -37,4 +40,5 @@ public class ManagerException {
             throw new InvalidDateException(field);
         }
     }
+
 }

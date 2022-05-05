@@ -120,47 +120,37 @@ public class ControllerHospitalView {
         if (currentId == 0) {
             JOptionPane.showMessageDialog(null, "Select a patient");
         } else {
+            String name = hospital.getTxtName().getText();
+            String lastName = hospital.getTxtLastName().getText();
+            //String age = hospital.getTxtAge().getText();
+            String gender = (String) hospital.getCombGender().getSelectedItem();
+            //java.sql.Date dateBirth = activities.generateDate();
 
-            if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
-                    || hospital.getTxtTutor().getText().isEmpty()
-                    || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
-                    || hospital.getDateChooser().getDate() == null) {
+            java.util.Date date = hospital.getDateChooser().getDate();
+            java.sql.Date sqldate = new java.sql.Date(date.getTime());
+            java.sql.Date dateBirth = sqldate;
 
-                JOptionPane.showMessageDialog(null, "Empty boxes, fill them");
-            } else {
+            LocalDate lclDate = LocalDate.parse(sqldate.toString());
+            int age = calculateAge(lclDate);
 
-                String name = hospital.getTxtName().getText();
-                String lastName = hospital.getTxtLastName().getText();
-                //String age = hospital.getTxtAge().getText();
-                String gender = (String) hospital.getCombGender().getSelectedItem();
-                //java.sql.Date dateBirth = activities.generateDate();
+            String originCity = hospital.getTxtOriginCity().getText();
+            String tutorName = hospital.getTxtTutor().getText();
+            String telephone = hospital.getTxtTelephone().getText();
+            String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
+            String originHospital = (String) hospital.getCombHospital().getSelectedItem();
 
-                java.util.Date date = hospital.getDateChooser().getDate();
-                java.sql.Date sqldate = new java.sql.Date(date.getTime());
-                java.sql.Date dateBirth = sqldate;
-
-                LocalDate lclDate = LocalDate.parse(sqldate.toString());
-                int age = calculateAge(lclDate);
-
-                String originCity = hospital.getTxtOriginCity().getText();
-                String tutorName = hospital.getTxtTutor().getText();
-                String telephone = hospital.getTxtTelephone().getText();
-                String typeBlood = (String) hospital.getCombTypeBlood().getSelectedItem();
-                String originHospital = (String) hospital.getCombHospital().getSelectedItem();
-
-                int id_hospital = 0;
-                for (int j = 0; j < hospitals.size(); j++) {
-                    if (hospitals.get(j).getName().equals(originHospital)) {
-                        id_hospital = hospitals.get(j).getId_hospital();
-                    }
+            int id_hospital = 0;
+            for (int j = 0; j < hospitals.size(); j++) {
+                if (hospitals.get(j).getName().equals(originHospital)) {
+                    id_hospital = hospitals.get(j).getId_hospital();
                 }
-
-                activities.updatePatient(currentId, name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood, id_hospital);
-                TableChildren();
-                cleanData();
-                currentId = 0;
-
             }
+
+            activities.updatePatient(currentId, name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood, id_hospital);
+            TableChildren();
+            cleanData();
+            currentId = 0;
+
         }
     }
 
