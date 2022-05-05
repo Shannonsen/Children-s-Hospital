@@ -49,6 +49,7 @@ public class HospitalView extends javax.swing.JFrame {
         btnAddPatient = new javax.swing.JButton();
         btnDeletePatient = new javax.swing.JButton();
         btnModifyPatient = new javax.swing.JButton();
+        btnAddHospital = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -325,6 +326,14 @@ public class HospitalView extends javax.swing.JFrame {
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
+        btnAddHospital.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
+        btnAddHospital.setText("add new hospital");
+        btnAddHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddHospitalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -340,6 +349,10 @@ public class HospitalView extends javax.swing.JFrame {
                 .addGap(365, 365, 365)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddHospital)
+                .addGap(52, 52, 52))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,11 +361,13 @@ public class HospitalView extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addGap(18, 18, 18)
+                .addComponent(btnAddHospital)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,7 +378,7 @@ public class HospitalView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -400,6 +415,10 @@ public class HospitalView extends javax.swing.JFrame {
     private void CombTypeBloodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CombTypeBloodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CombTypeBloodActionPerformed
+
+    private void btnAddHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHospitalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddHospitalActionPerformed
 
     public JButton getBtnAddPatient() {
         return btnAddPatient;
@@ -454,8 +473,14 @@ public class HospitalView extends javax.swing.JFrame {
         return tbChildren;
     }
 
+    public JButton getBtnAddHospital() {
+        return btnAddHospital;
+    }
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CombTypeBlood;
+    private javax.swing.JButton btnAddHospital;
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton btnDeletePatient;
     private javax.swing.JButton btnModifyPatient;

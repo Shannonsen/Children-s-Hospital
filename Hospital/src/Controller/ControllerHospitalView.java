@@ -10,6 +10,7 @@ import Exceptions.InvalidDateException;
 import Exceptions.InvalidLengthTelephoneException;
 import Exceptions.ManagerException;
 import Exceptions.NotAllowedCharacterException;
+import View.AddHospitalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -45,6 +46,7 @@ public class ControllerHospitalView {
     private void initComponents() {
         hospital.getBtnAddPatient().addActionListener(this::addPatient);
         hospital.getBtnModifyPatient().addActionListener(this::modifyPatient);
+        hospital.getBtnAddHospital().addActionListener(this::addHospital);
         hospital.getTbChildren().addMouseListener(tbClick);
         hospital.getBtnDeletePatient().addActionListener(this::deletePatient);
     }
@@ -234,6 +236,13 @@ public class ControllerHospitalView {
             cleanData();
             currentId = 0;
         }
+    }
+    
+    public void addHospital(ActionEvent e){
+        AddHospitalView addHospitalview = new AddHospitalView();
+        addHospitalview.setLocationRelativeTo(null);
+        addHospitalview.setVisible(true);
+        new ControllerAddHospitalView(addHospitalview);
     }
 
     MouseListener tbClick = new MouseListener() {
