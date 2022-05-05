@@ -7,6 +7,7 @@ import Data.Inscription;
 import Data.Patient;
 import Exceptions.EmptyFieldException;
 import Exceptions.InvalidDateException;
+import Exceptions.InvalidLengthTelephoneException;
 import Exceptions.ManagerException;
 import Exceptions.NotAllowedCharacterException;
 import java.awt.event.ActionEvent;
@@ -54,8 +55,8 @@ public class ControllerHospitalView {
             ManagerException.EmptyField(hospital.getTxtOriginCity().getText(), "City");
             ManagerException.DateValidation(hospital.getDateChooser().getDate(), "Date birth");
             ManagerException.EmptyField(hospital.getTxtTutor().getText(), "Tutor");
-            ManagerException.OnlyNumberField(hospital.getTxtTelephone().getText(), "Telephone");
-        }catch(EmptyFieldException | InvalidDateException | NotAllowedCharacterException ex){
+            ManagerException.TelephoneNumberValidation(hospital.getTxtTelephone().getText());
+        }catch(EmptyFieldException | InvalidDateException | NotAllowedCharacterException | InvalidLengthTelephoneException ex){
             JOptionPane.showMessageDialog(null, ex.getMessage());
             return;
         }
@@ -112,6 +113,17 @@ public class ControllerHospitalView {
     }
 
     public void modifyPatient(ActionEvent e) {
+        try{
+            ManagerException.EmptyField(hospital.getTxtName().getText(), "Name");
+            ManagerException.EmptyField(hospital.getTxtLastName().getText(), "Name");
+            ManagerException.EmptyField(hospital.getTxtOriginCity().getText(), "City");
+            ManagerException.DateValidation(hospital.getDateChooser().getDate(), "Date birth");
+            ManagerException.EmptyField(hospital.getTxtTutor().getText(), "Tutor");
+            ManagerException.TelephoneNumberValidation(hospital.getTxtTelephone().getText());
+        }catch(EmptyFieldException | InvalidDateException | NotAllowedCharacterException | InvalidLengthTelephoneException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
+        }
         if (currentId == 0) {
             JOptionPane.showMessageDialog(null, "Select a patient");
         } else {
