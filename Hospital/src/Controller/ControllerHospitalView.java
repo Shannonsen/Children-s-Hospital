@@ -54,7 +54,7 @@ public class ControllerHospitalView {
     private void addPatient(ActionEvent e) {
         try {
             ManagerException.EmptyField(hospital.getTxtName().getText(), "Name");
-            ManagerException.EmptyField(hospital.getTxtLastName().getText(), "Name");
+            ManagerException.EmptyField(hospital.getTxtLastName().getText(), "Last Name");
             ManagerException.EmptyField(hospital.getTxtOriginCity().getText(), "City");
             ManagerException.DateValidation(hospital.getDateChooser().getDate(), "Date birth");
             ManagerException.EmptyField(hospital.getTxtTutor().getText(), "Tutor");

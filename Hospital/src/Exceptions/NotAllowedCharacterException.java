@@ -12,7 +12,7 @@ package Exceptions;
 public class NotAllowedCharacterException extends Exception{
 
     public NotAllowedCharacterException(String message) {
-        super("Se se aceptan números en el campo: " + message);
+        super("Solo se aceptan números en el campo: " + message);
     }
     
 }

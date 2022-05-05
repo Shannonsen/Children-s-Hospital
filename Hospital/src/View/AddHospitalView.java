@@ -116,7 +116,7 @@ public class AddHospitalView extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buttons"));
 
         btnAddHospital.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
-        btnAddHospital.setText("add new patient");
+        btnAddHospital.setText("add new hospital");
         btnAddHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddHospitalActionPerformed(evt);
