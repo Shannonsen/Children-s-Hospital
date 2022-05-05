@@ -1,9 +1,5 @@
 package Data;
 
-/**
- *
- * @author Shannon
- */
 public class Hospital {
     int id_hospital;
     String name;

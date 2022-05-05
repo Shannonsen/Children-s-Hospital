@@ -22,9 +22,10 @@ public class Patient {
     String originCity;
     String tutorName;
     String telephone;
+    Boolean is_patient;
     String typeBlood;
 
-    public Patient(int id_patient, String name, String lastname, String age, String gender, Date dateBirth, String originCity, String tutorName, String telephone, String typeBlood) {
+    public Patient(int id_patient, String name, String lastname, String age, String gender, Date dateBirth, String originCity, String tutorName, String telephone, String typeBlood, Boolean is_patient) {
         this.id_patient = id_patient;
         this.name = name;
         this.lastname = lastname;
@@ -34,6 +35,7 @@ public class Patient {
         this.originCity = originCity;
         this.tutorName = tutorName;
         this.telephone = telephone;
+        this.is_patient = is_patient;
         this.typeBlood = typeBlood;
     }
 
@@ -77,6 +79,9 @@ public class Patient {
         return telephone;
     }
 
+    public Boolean getIs_patient() {
+        return is_patient;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -107,6 +112,9 @@ public class Patient {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+    public void setIs_patient(Boolean is_patient) {
+        this.is_patient = is_patient;
     }
 
     public void setTypeBlood(String typeBlood) {

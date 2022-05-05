@@ -36,10 +36,8 @@ public class HospitalView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtAge = new javax.swing.JTextField();
         txtTutor = new javax.swing.JTextField();
         txtTelephone = new javax.swing.JTextField();
         combGender = new javax.swing.JComboBox();
@@ -51,6 +49,7 @@ public class HospitalView extends javax.swing.JFrame {
         btnAddPatient = new javax.swing.JButton();
         btnDeletePatient = new javax.swing.JButton();
         btnModifyPatient = new javax.swing.JButton();
+        btnAddHospital = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -84,9 +83,16 @@ public class HospitalView extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false, true, true, true, true, true, true, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tbChildren.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,16 +160,11 @@ public class HospitalView extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel7.setText("Date birth");
 
-        jLabel8.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
-        jLabel8.setText("age");
-
         jLabel9.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel9.setText("tutor name");
 
         jLabel10.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
         jLabel10.setText("telephone");
-
-        txtAge.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         txtTutor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -209,15 +210,9 @@ public class HospitalView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel8)))
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAge)
-                            .addComponent(combGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(combGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -273,9 +268,7 @@ public class HospitalView extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
                     .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(txtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -333,6 +326,14 @@ public class HospitalView extends javax.swing.JFrame {
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
+        btnAddHospital.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
+        btnAddHospital.setText("add new hospital");
+        btnAddHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddHospitalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -348,6 +349,10 @@ public class HospitalView extends javax.swing.JFrame {
                 .addGap(365, 365, 365)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddHospital)
+                .addGap(52, 52, 52))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,11 +361,13 @@ public class HospitalView extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addGap(18, 18, 18)
+                .addComponent(btnAddHospital)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -371,7 +378,7 @@ public class HospitalView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -409,6 +416,10 @@ public class HospitalView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CombTypeBloodActionPerformed
 
+    private void btnAddHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHospitalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddHospitalActionPerformed
+
     public JButton getBtnAddPatient() {
         return btnAddPatient;
     }
@@ -437,9 +448,6 @@ public class HospitalView extends javax.swing.JFrame {
         return dateChooser;
     }
 
-    public JTextField getTxtAge() {
-        return txtAge;
-    }
 
     public JTextField getTxtLastName() {
         return txtLastName;
@@ -465,8 +473,14 @@ public class HospitalView extends javax.swing.JFrame {
         return tbChildren;
     }
 
+    public JButton getBtnAddHospital() {
+        return btnAddHospital;
+    }
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CombTypeBlood;
+    private javax.swing.JButton btnAddHospital;
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton btnDeletePatient;
     private javax.swing.JButton btnModifyPatient;
@@ -482,7 +496,6 @@ public class HospitalView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -491,7 +504,6 @@ public class HospitalView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTable tbChildren;
-    private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtOriginCity;
