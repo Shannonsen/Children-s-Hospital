@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Shannon
- */
 public class Operations {
     Conexion con = new Conexion();
     Scanner strScanner = new Scanner(System.in);

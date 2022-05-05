@@ -18,10 +18,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Shannon
- */
 public class ControllerHospitalView {
 
     private final HospitalView hospital;
@@ -100,11 +96,11 @@ public class ControllerHospitalView {
             isNumericTelephone = activities.isNumericTelephone(telephone);
             isNumericAge = activities.isNumericAge(age);
 
-            if (isNumericTelephone == false) {
+            if (!isNumericTelephone) {
                 JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
-            } else if (isNumericAge == false) {
+            } else if (!isNumericAge) {
                 JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
-            } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false || isLetterOriginCity == false) {
+            } else if (!isLetterName||!isLetterLastName||!isLetterTutorName|| !isLetterOriginCity) {
                 JOptionPane.showMessageDialog(null, "Only letters");
             } else {
 
@@ -185,11 +181,11 @@ public class ControllerHospitalView {
                 isNumericTelephone = activities.isNumericTelephone(telephone);
                 isNumericAge = activities.isNumericAge(age);
 
-                if (isNumericTelephone == false) {
+                if (!isNumericTelephone) {
                     JOptionPane.showMessageDialog(null, "Only numbers and 9-10 numbers necessary");
-                } else if (isNumericAge == false) {
+                } else if (!isNumericAge) {
                     JOptionPane.showMessageDialog(null, "Only numbers and numbers[1-17]");
-                } else if (isLetterName == false || isLetterLastName == false || isLetterTutorName == false || isLetterOriginCity == false) {
+                } else if (!isLetterName|| !isLetterLastName || !isLetterTutorName || !isLetterOriginCity) {
                     JOptionPane.showMessageDialog(null, "Only letters");
                 } else {
                     int id_hospital = 0;
