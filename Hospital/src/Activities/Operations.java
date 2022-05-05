@@ -30,8 +30,9 @@ public class Operations {
 
             while (rs.next()) {
                 patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
-                        rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getString("telephone"), rs.getString("type_blood")));
+                        rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"), 
+                        rs.getString("telephone"), rs.getString("type_blood"), rs.getBoolean("is_patient")));
+
                 countrow++;
             }
         } catch (Exception e) {
@@ -82,7 +83,8 @@ public class Operations {
             while (rs.next()) {
                 patients.add(new Patient(rs.getInt("id_patient"), rs.getString("name"), rs.getString("last_name"), rs.getString("age"),
                         rs.getString("gender"), rs.getDate("date_birth"), rs.getString("origin_city"), rs.getString("tutor_name"),
-                        rs.getString("telephone"), rs.getString("type_blood")));
+                        rs.getString("telephone"), rs.getString("type_blood"), rs.getBoolean("is_patient")));
+
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -147,8 +149,8 @@ public class Operations {
         countrow = 0;
         ArrayList<Patient> patients = new ArrayList<Patient>();
         try {
-            PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone, type_blood)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?)");
+            PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone, type_blood, is_patient)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?)");
             insert.setString(1, name);
             insert.setString(2, lastname);
             insert.setString(3, age);
@@ -158,6 +160,7 @@ public class Operations {
             insert.setString(7, tutorName);
             insert.setString(8, telephone);
             insert.setString(9, type_blood);
+            insert.setBoolean(10, true);
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Succesfull patient");
@@ -167,11 +170,32 @@ public class Operations {
         }
         return countrow;
     }
+    
+    public int addHospitalMysql(String name, String address, String telephone) {
+        countrow = 0;
+        ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+        try {
+            PreparedStatement insert = cn.prepareCall("INSERT INTO hospitals(name,address,telephone)"
+                    + "VALUES (?,?,?)");
+            insert.setString(1, name);
+            insert.setString(2, address);
+            insert.setString(3, telephone);
+            insert.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Succesfull hospital");
+            getPatients();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return countrow;
+    }
 
     public void deletePatient(int id_patient) {
         try {
-            PreparedStatement insert = cn.prepareCall("DELETE from Patients WHERE id_patient=?");
-            insert.setInt(1, id_patient);
+            PreparedStatement insert = cn.prepareCall("UPDATE Patients SET is_patient=? WHERE id_patient=?");
+            
+            insert.setBoolean(1, false);
+            insert.setInt(2, id_patient);
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Succesfull delete patient");
