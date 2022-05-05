@@ -167,6 +167,25 @@ public class Operations {
         }
         return countrow;
     }
+    
+    public int addHospitalMysql(String name, String address, String telephone) {
+        countrow = 0;
+        ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+        try {
+            PreparedStatement insert = cn.prepareCall("INSERT INTO hospitals(name,address,telephone)"
+                    + "VALUES (?,?,?)");
+            insert.setString(1, name);
+            insert.setString(2, address);
+            insert.setString(3, telephone);
+            insert.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Succesfull hospital");
+            getPatients();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return countrow;
+    }
 
     public void deletePatient(int id_patient) {
         try {
