@@ -2,10 +2,6 @@ package View;
 
 import Controller.ControllerHospitalView;
 
-/**
- *
- * @author Shannon
- */
 public class Main {
 
     public static void main(String[] args) {
