@@ -147,7 +147,6 @@ public class Operations {
     public int addPatientMysql(String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity,
             String tutorName, String telephone, String type_blood) {
         countrow = 0;
-        ArrayList<Patient> patients = new ArrayList<Patient>();
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO Patients(name,last_name,age,gender,date_Birth,origin_city,tutor_name,telephone, type_blood, is_patient)"
                     + "VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -173,7 +172,6 @@ public class Operations {
     
     public int addHospitalMysql(String name, String address, String telephone) {
         countrow = 0;
-        ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
         try {
             PreparedStatement insert = cn.prepareCall("INSERT INTO hospitals(name,address,telephone)"
                     + "VALUES (?,?,?)");

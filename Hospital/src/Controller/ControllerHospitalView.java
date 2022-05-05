@@ -122,9 +122,7 @@ public class ControllerHospitalView {
         } else {
             String name = hospital.getTxtName().getText();
             String lastName = hospital.getTxtLastName().getText();
-            //String age = hospital.getTxtAge().getText();
             String gender = (String) hospital.getCombGender().getSelectedItem();
-            //java.sql.Date dateBirth = activities.generateDate();
 
             java.util.Date date = hospital.getDateChooser().getDate();
             java.sql.Date sqldate = new java.sql.Date(date.getTime());
@@ -185,8 +183,7 @@ public class ControllerHospitalView {
             for (int i = 0; i < patient.size(); i++) {
                 hospital.getTxtName().setText(patient.get(i).getName());
                 hospital.getTxtLastName().setText(patient.get(i).getLastname());
-                hospital.getTxtOriginCity().setText(patient.get(i).getOriginCity());
-                //hospital.getTxtAge().setText(patient.get(i).getAge());
+                hospital.getTxtOriginCity().setText(patient.get(i).getOriginCity());         
                 hospital.getTxtTutor().setText(patient.get(i).getTutorName());
                 hospital.getTxtTelephone().setText(patient.get(i).getTelephone());
                 hospital.getCombGender().setSelectedItem(patient.get(i).getGender());
@@ -269,7 +266,6 @@ public class ControllerHospitalView {
         hospital.getTxtName().setText("");
         hospital.getTxtLastName().setText("");
         hospital.getTxtOriginCity().setText("");
-        //hospital.getTxtAge().setText("");
         hospital.getTxtTutor().setText("");
         hospital.getTxtTelephone().setText("");
     }
