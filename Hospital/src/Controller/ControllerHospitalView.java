@@ -5,6 +5,10 @@ import Activities.Operations;
 import Data.Hospital;
 import Data.Inscription;
 import Data.Patient;
+import Exceptions.EmptyFieldException;
+import Exceptions.InvalidDateException;
+import Exceptions.ManagerException;
+import Exceptions.NotAllowedCharacterException;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -47,15 +51,18 @@ public class ControllerHospitalView {
     }
 
     private void addPatient(ActionEvent e) {
-
-        if (hospital.getTxtName().getText().isEmpty() || hospital.getTxtLastName().getText().isEmpty()
-                || hospital.getTxtAge().getText().isEmpty() || hospital.getTxtTutor().getText().isEmpty()
-                || hospital.getTxtTelephone().getText().isEmpty() || hospital.getTxtOriginCity().getText().isEmpty()
-                || hospital.getDateChooser().getDate() == null) {
-
-            JOptionPane.showMessageDialog(null, "Empty boxes, fill them");
-        } else {
-
+        try{
+            ManagerException.EmptyField(hospital.getTxtName().getText(), "Name");
+            ManagerException.EmptyField(hospital.getTxtLastName().getText(), "Name");
+            ManagerException.EmptyField(hospital.getTxtOriginCity().getText(), "City");
+            ManagerException.DateValidation(hospital.getDateChooser().getDate(), "Date birth");
+            ManagerException.EmptyField(hospital.getTxtTutor().getText(), "Tutor");
+            ManagerException.OnlyNumberField(hospital.getTxtTelephone().getText(), "Telephone");
+        }catch(EmptyFieldException | InvalidDateException | NotAllowedCharacterException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
+        }
+        
             String name = hospital.getTxtName().getText();
             String lastName = hospital.getTxtLastName().getText();
             String age = hospital.getTxtAge().getText();
@@ -106,9 +113,7 @@ public class ControllerHospitalView {
                 activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
                 TableChildren();
                 cleanData();
-            }
         }
-
     }
 
     public void modifyPatient(ActionEvent e) {
@@ -162,13 +167,11 @@ public class ControllerHospitalView {
                 } else {
                     int id_hospital = 0;
                     for (int j = 0; j < hospitals.size(); j++) {
-                        if (hospitals.get(j).getName().equals(originHospital)) {                  
+                        if (hospitals.get(j).getName().equals(originHospital)) {
                             id_hospital = hospitals.get(j).getId_hospital();
                         }
                     }
-
                     activities.updatePatient(currentId, name, lastName, age, gender, dateBirth, originCity, tutorName, telephone, typeBlood, id_hospital);
-
                     TableChildren();
                     cleanData();
                     currentId = 0;
