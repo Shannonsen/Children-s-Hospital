@@ -2,10 +2,6 @@ package Data;
 
 import java.sql.Date;
 
-/**
- *
- * @author Shannon
- */
 public class Inscription {
     int id_inscription;
     int id_patient;

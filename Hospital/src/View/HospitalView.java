@@ -43,6 +43,8 @@ public class HospitalView extends javax.swing.JFrame {
         combGender = new javax.swing.JComboBox();
         combHospital = new javax.swing.JComboBox();
         dateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel11 = new javax.swing.JLabel();
+        CombTypeBlood = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         btnAddPatient = new javax.swing.JButton();
         btnDeletePatient = new javax.swing.JButton();
@@ -68,20 +70,20 @@ public class HospitalView extends javax.swing.JFrame {
 
         tbChildren.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Last name", "Age", "Gender", "Hospital origin", "Inscription", "DateBirth", "Tutor", "Telephone", "City"
+                "ID", "Name", "Last name", "Age", "Gender", "Hospital origin", "Inscription", "DateBirth", "Tutor", "Telephone", "City", "TypeBlood"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, true, false, true, true, true, true, true, true, true
+                true, true, true, false, true, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -119,6 +121,7 @@ public class HospitalView extends javax.swing.JFrame {
             tbChildren.getColumnModel().getColumn(8).setPreferredWidth(80);
             tbChildren.getColumnModel().getColumn(9).setResizable(false);
             tbChildren.getColumnModel().getColumn(10).setResizable(false);
+            tbChildren.getColumnModel().getColumn(11).setResizable(false);
         }
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
@@ -180,6 +183,15 @@ public class HospitalView extends javax.swing.JFrame {
 
         combHospital.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jLabel11.setFont(new java.awt.Font("Ebrima", 0, 18)); // NOI18N
+        jLabel11.setText("Type blood");
+
+        CombTypeBlood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CombTypeBloodActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -187,6 +199,11 @@ public class HospitalView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CombTypeBlood, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,7 +219,7 @@ public class HospitalView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtTutor))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 75, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -251,7 +268,11 @@ public class HospitalView extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(CombTypeBlood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(215, 179, 189));
@@ -331,7 +352,7 @@ public class HospitalView extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(110, 110, 110))
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -342,7 +363,7 @@ public class HospitalView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, Short.MAX_VALUE)
         );
 
         pack();
@@ -376,6 +397,10 @@ public class HospitalView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnDeletePatientActionPerformed
 
+    private void CombTypeBloodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CombTypeBloodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CombTypeBloodActionPerformed
+
     public JButton getBtnAddPatient() {
         return btnAddPatient;
     }
@@ -390,6 +415,10 @@ public class HospitalView extends javax.swing.JFrame {
 
     public JComboBox getCombGender() {
         return combGender;
+    }
+    
+    public JComboBox getCombTypeBlood() {
+        return CombTypeBlood;
     }
 
     public JComboBox getCombHospital() {
@@ -426,6 +455,7 @@ public class HospitalView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox CombTypeBlood;
     private javax.swing.JButton btnAddPatient;
     private javax.swing.JButton btnDeletePatient;
     private javax.swing.JButton btnModifyPatient;
@@ -434,6 +464,7 @@ public class HospitalView extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

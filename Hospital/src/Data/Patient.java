@@ -2,16 +2,6 @@ package Data;
 
 import java.sql.Date;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Shannon
- */
-
 public class Patient {
     int id_patient;
     String name;
@@ -22,8 +12,9 @@ public class Patient {
     String originCity;
     String tutorName;
     String telephone;
+    String typeBlood;
 
-    public Patient(int id_patient,String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, String telephone) {
+    public Patient(int id_patient, String name, String lastname, String age, String gender, Date dateBirth, String originCity, String tutorName, String telephone, String typeBlood) {
         this.id_patient = id_patient;
         this.name = name;
         this.lastname = lastname;
@@ -33,6 +24,7 @@ public class Patient {
         this.originCity = originCity;
         this.tutorName = tutorName;
         this.telephone = telephone;
+        this.typeBlood = typeBlood;
     }
 
     public int getId_patient() {
@@ -65,6 +57,10 @@ public class Patient {
 
     public String getTutorName() {
         return tutorName;
+    }
+
+    public String getTypeBlood() {
+        return typeBlood;
     }
 
     public String getTelephone() {
@@ -101,6 +97,10 @@ public class Patient {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public void setTypeBlood(String typeBlood) {
+        this.typeBlood = typeBlood;
     }
 
 }
