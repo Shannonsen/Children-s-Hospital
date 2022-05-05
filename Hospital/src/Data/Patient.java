@@ -22,8 +22,9 @@ public class Patient {
     String originCity;
     String tutorName;
     String telephone;
+    Boolean is_patient;
 
-    public Patient(int id_patient,String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, String telephone) {
+    public Patient(int id_patient,String name, String lastname, String age, String gender, java.sql.Date dateBirth, String originCity, String tutorName, String telephone, Boolean is_patient) {
         this.id_patient = id_patient;
         this.name = name;
         this.lastname = lastname;
@@ -33,6 +34,7 @@ public class Patient {
         this.originCity = originCity;
         this.tutorName = tutorName;
         this.telephone = telephone;
+        this.is_patient = is_patient;
     }
 
     public int getId_patient() {
@@ -71,6 +73,9 @@ public class Patient {
         return telephone;
     }
 
+    public Boolean getIs_patient() {
+        return is_patient;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -102,5 +107,7 @@ public class Patient {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-
+    public void setIs_patient(Boolean is_patient) {
+        this.is_patient = is_patient;
+    }
 }
