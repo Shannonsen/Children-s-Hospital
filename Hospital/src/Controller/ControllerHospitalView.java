@@ -89,8 +89,8 @@ public class ControllerHospitalView {
         int rowcount = activities.addPatientMysql(name, lastName, Integer.toString(age), gender, dateBirth, originCity, tutorName, telephone, typeBlood);
 
         TableChildren();
-
         activities.addInscription(patients.get(rowcount - 1).getId_patient(), id_hospital);
+        System.out.println("after that");
         TableChildren();
         cleanData();
 
@@ -230,7 +230,6 @@ public class ControllerHospitalView {
         tableChildren.setRowCount(0);
 
         Object rowData[] = new Object[12];
-
         for (int i = 0; i < patients.size(); i++) {
             if (patients.get(i).getIs_patient()) {
                 rowData[0] = patients.get(i).getId_patient();
@@ -257,7 +256,6 @@ public class ControllerHospitalView {
                 rowData[10] = patients.get(i).getOriginCity();
                 rowData[11] = patients.get(i).getTypeBlood();
                 tableChildren.addRow(rowData);
-
             }
         }
     }
