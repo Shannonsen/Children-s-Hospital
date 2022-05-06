@@ -16,7 +16,7 @@ public class Conexion {
     public Connection conexion() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3406/hospital", "Shannon", "mysqlpass");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital", "Shannon", "mysqlpass");
             JOptionPane.showMessageDialog(null, "Succesful conection");
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, e.getMessage());
