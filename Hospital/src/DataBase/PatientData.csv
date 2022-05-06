@@ -1,3 +1,12 @@
-﻿Id_patient,name,last_name,age,gender,date_birth,origin_city,tutor_name,telephone,type_blood,is_patient
-1,Jose,Mendez,12,F,12/03/2000,merida,mama,123123123,O+,1
-2,Miguel,Tovar,0,F,02/05/2022,Mexico,Martha,1233332213,O+,1
+id_hospital,name,address,telephone,is_sinchronized
+1,Shannon,Sen Perdomo,15,F,18/02/2000,Merida,Michelle Aurora,9995872208,A+,1,1
+2,David Alejandro,Romero Segura,16,M,07/06/2021,Putumayo,Lizzy Romero,9992590201,B+,1,1
+4,Javier, asd,2,M,16/12/2021,Yucatan,Audri Vasquez,1234567818,AB+,1,1
+5,Fernando,Chu Mendez,9,M,18/11/2021,Oaxaca,Pedro Chu,8693050925,O-,1,1
+7,Jimena Luu,Chan Perez,10,F,12/11/2021,Mexico,Maria Perez,1964532896,O-,0,1
+8,Jose,Mendez,12,F,12/03/2000,merida,mama,123123123,O+,1,1
+9,Miguel,Zap,18,F,12/06/2003,Mexico,Maria,123123451,B+,0,1
+10,Jose,Mendez,12,F,12/03/2000,merida,mama,123123123,O+,0,1
+11,Miguel,Zap,18,F,12/06/2003,Mexico,Maria,123123451,B+,0,1
+12,Juanito,Linares,18,F,12/06/2003,Meixco,Maria Velasquez,3546345867,B+,1,1
+13,Shannon,Sen,13,F,12/02/2009,Campeche,Noe Gonzales,1231234567,O+,1,1
